@@ -1,7 +1,7 @@
 # SDK pro obsluhu dotazů na Image Server
 
 Jednodušší skladba URL pro získání daného obrázku z image serveru.
-
+Dokumentace <a href="https://imageserver.ack.ee/" target="_blank">zde</a>
 
 ## Použití
 

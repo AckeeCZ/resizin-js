@@ -46,7 +46,23 @@ const commonConfig = {
             }
         ],
     },
+    externals: {
+        'isomorphic-fetch': {
+            root: 'isomorphic-fetch',
+            commonjs2: 'isomorphic-fetch',
+            commonjs: 'isomorphic-fetch',
+            amd: 'isomorphic-fetch'
+        },
+        'form-data': {
+            root: 'form-data',
+            commonjs2: 'form-data',
+            commonjs: 'form-data',
+            amd: 'form-data'
+        }
+    },
     node: {
+        fs: "empty",
+        Buffer: false,
         net: 'empty',
         tls: 'empty',
         dns: 'empty',
