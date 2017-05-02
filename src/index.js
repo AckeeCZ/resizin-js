@@ -118,13 +118,11 @@ export const uploadImage = (url, api_key, id, file) => {
             "Authorization": "Key " + api_key
         }
     }
+    
     let formData;
-
-    if(file instanceof Buffer){
+    if (typeof window === 'undefined') {
         formData = new NodeFormData();
-        //file = file.toString('base64');
-    }
-    else{
+    } else {
         formData = new FormData();
     }
     

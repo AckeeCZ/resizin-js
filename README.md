@@ -1,27 +1,43 @@
-# SDK pro obsluhu dotazů na Image Server
+# SDK for Image Server services
 
-Jednodušší skladba URL pro získání daného obrázku z image serveru.
-Dokumentace <a href="https://imageserver.ack.ee/" target="_blank">zde</a>
+Contains uploading component for upload images and build component to easily building URL for getting chosen image from server.
+Interactive documentation <a href="https://imageserver.ack.ee/" target="_blank">here</a>.
 
-## Použití
+## Upload component
 
-* Import balíčku
+* Package import
+    * `var uploadImage = require("ackee-image-server").uploadImage;`
+    * ES6: `import { uploadImage } from "ackee-image-server";`
+     
+* Initialization
+    ```
+        var bucketUploader = uploadImage.bind(null, url = "http://imageserver-admin-api.ack.ee/api/v1/image/upload", api_key = "56ebbff9276e563e008687d1");
+    ```
+
+* Upload
+    ```
+        bucketUploader(id = "File name", your_file);
+    ```
+
+## Build URL component
+
+* Package import
     * `var buildSource = require("ackee-image-server").buildSource;`
     * ES6: `import { buildSource } from "ackee-image-server";`
      
-* Inicializace daného bucketu
+* Bucket initialization
     ```
-        var bucketBuilder = buildSource.bind(null, 'https://nocdnimg.ack.ee', "test");
-    ```
-
-* Skladba URL
-    ```
-        bucketBuilder('pepus', {width: 250, left: '20', filter: 'sepia', rotate: 90, border: [10, 20]})
+        var bucketBuilder = buildSource.bind(null, url = 'https://nocdnimg.ack.ee', bucket_alias = "test");
     ```
 
-## Výsledek
+* Building URL
+    ```
+        bucketBuilder(id = 'pepus', {width: 250, left: '20', filter: 'sepia', rotate: 90, border: [10, 20]})
+    ```
 
-Výsledná url v html tagu `<img>`
+## Result
+
+Built URL in a HTML element `<img>`
 
 ![alt tag](https://nocdnimg.ack.ee/test/image/w_250-x_20-f_sepia-r_90-b_10_20/pepus)
 
