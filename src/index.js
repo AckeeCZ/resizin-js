@@ -94,7 +94,19 @@ export const buildSource = (base, bucket, imageId, options) => {
     return `${base}/${bucket}/image/${serializedOptions}${imageId}`;
 };
 
-export const uploadImage = (api_key, id, file) => {
+export const uploadImage = (url, api_key, id, file) => {
+    if(!url){
+        throw new Error("Url is missing!");
+        return;
+    }
+    if(!id){
+        throw new Error("Name is missing!");
+        return;
+    }
+    if(!api_key){
+        throw new Error("API KEY is missing!");
+        return;
+    }
     if(!file){
         throw new Error("Body is missing!");
         return;
@@ -103,10 +115,9 @@ export const uploadImage = (api_key, id, file) => {
     let options = {
         "method": "POST",
         "headers": {
-            "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoyLCJyb2xlcyI6WyJ1c2VyIl19LCJpYXQiOjE0OTE5MTY4MDIzNTEsImV4cCI6MTQ5MTkyMDQwMjM1MX0.q5cvlyd1TiWotHPH-CVDUG9lzDlJ5y_jhRcnB1I_1Nk"
+            "Authorization": "Key " + api_key
         }
     }
-    let url = "http://imageserver-admin-api.ack.ee/api/v1/image/upload";
     let formData;
 
     if(file instanceof Buffer){
@@ -120,8 +131,6 @@ export const uploadImage = (api_key, id, file) => {
     formData.append('id', id);
     formData.append('file', file);
     options.body = formData;
-
-    console.log(options);
 
     fetch(url, options)
         .then(function(response) {
