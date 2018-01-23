@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-const merge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
+const Visualizer = require('webpack-visualizer-plugin');
 
 const pkg = require('../package.json');
 
@@ -39,6 +39,7 @@ const commonConfig = {
                         options: {
                             presets: ['es2015', 'react', 'stage-1'],
                             compact: false,
+                            plugins: ['lodash'],
                         },
                     },
                     
@@ -69,15 +70,4 @@ const commonConfig = {
     },
 };
 
-const prodConfig = {
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-            },
-        }),
-    ],
-    devtool: 'source-map',
-};
-
-module.exports = merge(commonConfig, prodConfig);
+module.exports = commonConfig;

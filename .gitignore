@@ -6,3 +6,4 @@ www/build/
 index.html
 *.log*
 npm-debug.log
+stats/
