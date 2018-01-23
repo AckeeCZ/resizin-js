@@ -40,6 +40,7 @@ const commonConfig = {
                         options: {
                             presets: ['es2015', 'react', 'stage-1'],
                             compact: false,
+                            plugins: ['lodash'],
                         },
                     },
                     
