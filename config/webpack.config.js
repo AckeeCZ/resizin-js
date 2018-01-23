@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
+const Visualizer = require('webpack-visualizer-plugin');
 
 const pkg = require('../package.json');
 
@@ -76,6 +77,9 @@ const prodConfig = {
                 warnings: false,
             },
         }),
+        new Visualizer({
+            filename: 'stats/index.html',
+        })
     ],
     devtool: 'source-map',
 };
