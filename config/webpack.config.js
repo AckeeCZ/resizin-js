@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const merge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 const Visualizer = require('webpack-visualizer-plugin');
 
@@ -71,18 +70,4 @@ const commonConfig = {
     },
 };
 
-const prodConfig = {
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-            },
-        }),
-        new Visualizer({
-            filename: 'stats/index.html',
-        })
-    ],
-    devtool: 'source-map',
-};
-
-module.exports = merge(commonConfig, prodConfig);
+module.exports = commonConfig;

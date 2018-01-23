@@ -31,7 +31,6 @@
     "yaml-loader": "0.4.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.9.1",
     "es6-promise": "^3.2.1",
     "form-data": "^2.1.4",
     "isomorphic-fetch": "^2.2.1",
