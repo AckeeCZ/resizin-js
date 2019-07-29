@@ -1,3 +1,7 @@
+# Package is currently being revitalised
+
+![](http://static1.1.sqspcdn.com/static/f/207938/4844797/1258911333857/12345under.jpg)
+
 # SDK for Image Server services
 
 Contains uploading component for upload images and build component to easily building URL for getting chosen image from server.
