@@ -7,8 +7,10 @@
 		"moduleResolution": "node",
 		// Generate corresponding .d.ts file.
 		"declaration": true,
-		// Enable strictest settings like strictNullChecks & noImplicitAny.
-		"strict": true,
+
+        // TODO - disabled strict until end of refactor phase
+        "strict": false,
+
 		// Import non-ES modules as default imports.
         "esModuleInterop": true,
         "jsx": "react",
@@ -16,5 +18,5 @@
 	"include": [
 		"packages/*/src"
     ],
-    "exclude": ["node_modules", "build", "lib", "stories", "**/*.story.tsx", "**/*.d.ts"]
+    "exclude": ["node_modules", "build", "lib", "stories", "**/*.story.tsx", "**/*.d.ts", "**/*/__tests__"]
 }
