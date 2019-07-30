@@ -22,7 +22,7 @@
         "noUnusedLocals": true
 	},
 	"include": [
-		"packages"
+		"packages/*/src"
     ],
-    "exclude": ["node_modules", "build", "lib", "stories", "**/*.story.tsx"]
+    "exclude": ["node_modules", "build", "packages/*/lib", "stories", "**/*.story.tsx"]
 }

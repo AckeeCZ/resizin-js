@@ -14,7 +14,7 @@
         "jsx": "react",
 	},
 	"include": [
-		"packages"
+		"packages/*/src"
     ],
     "exclude": ["node_modules", "build", "lib", "stories", "**/*.story.tsx", "**/*.d.ts"]
 }
