@@ -6,7 +6,10 @@
     "check": "npm run list && npm run type-check",
     "lint": "tslint \"packages/**/*.{ts,tsx}\"",
     "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch"
+    "type-check:watch": "npm run type-check -- --watch",
+    "start": "npm run build && onchange 'src/**/*.{ts,tsx}' -- npm run build",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",
