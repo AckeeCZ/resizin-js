@@ -22,6 +22,7 @@
     "@types/jest": "^23.3.13",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
+    "babel-plugin-transform-imports": "^2.0.0",
     "changelog-it": "github:AckeeCZ/changelog-it",
     "cross-env": "^5.2.0",
     "jest": "^23.6.0",
