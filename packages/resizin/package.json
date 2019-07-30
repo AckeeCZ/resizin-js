@@ -26,6 +26,7 @@
   "readme": "README.md",
   "repository": "https://github.com/AckeeCZ/resizin-js/",
   "dependencies": {
+    "@types/lodash": "^4.14.136",
     "es6-promise": "^3.2.1",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.11.1"
