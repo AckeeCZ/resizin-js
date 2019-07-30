@@ -1,51 +1,15 @@
-![ackee|$NAME](https://img.ack.ee/ackee/image/github/js)
+# Package is currently being revitalised
 
-# [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/AckeeCZ/$NAME/blob/master/LICENSE) [![CI Status](https://img.shields.io/travis/com/AckeeCZ/$NAME.svg?style=flat)](https://travis-ci.com/AckeeCZ/$NAME) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request) [![Dependency Status](https://img.shields.io/david/AckeeCZ/$NAME.svg?style=flat-square)](https://david-dm.org/AckeeCZ/$NAME)
+![](http://static1.1.sqspcdn.com/static/f/207938/4844797/1258911333857/12345under.jpg)
 
-# $NAME
+# [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/AckeeCZ/resizin-js/blob/master/LICENSE) [![CI Status](https://img.shields.io/travis/com/AckeeCZ/resizin-js.svg?style=flat)](https://travis-ci.com/AckeeCZ/resizin-js) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request) [![Dependency Status](https://img.shields.io/david/AckeeCZ/resizin-js.svg?style=flat-square)](https://david-dm.org/AckeeCZ/resizin-js)
 
-> $DESCRIPTION
+# resizin-js
 
-> Name of package $EXPLANATION_OF_THE_NAME
+Packages for easy use of Ackee image server [Resizin](https://www.resizin.com) from any javascript environment.
 
-## Table of contents
+## Packages
 
-* [Installation](#installation)
-* [API](#api)
-    * [components](#components)
-    * [HOC](#hoc)
-    * [Selectors](#selectors)
-    * [Sagas](#sagas)
+Consists of
 
-## <a name="installation"></a>Installation
-
-Using npm:
-
-```
-npm i -s @ackee/$NAME
-```
-
-Using yarn:
-
-```
-yarn add @ackee/$NAME
-```
-
-## <a name="api"></a>API
-
-### Components
-
-___
-
-### HOC
-
-___
-
-### Selectors
-
-___
-
-### Sagas
-
-
-
+* [@ackee/resizin](packages/resizin/README.md)
