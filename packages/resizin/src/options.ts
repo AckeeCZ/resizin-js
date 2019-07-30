@@ -1,26 +1,26 @@
-import _ from 'lodash';
+import { isArray, map, find, castArray, isString, isEmpty } from 'lodash';
 
 const TRANSFORMS = {
-    string(v) {
+    string(v: any) {
         return String(v || '');
     },
-    array(v) {
+    array(v: any) {
         switch (true) {
-            case _.isArray(v):
-                return _.map(v, TRANSFORMS.string).join('_');
+            case isArray(v):
+                return map(v, TRANSFORMS.string).join('_');
             default:
                 return TRANSFORMS.string(v);
         }
     },
-    enu(options) {
+    enu(options: any) {
         // TODO - why do we need weak comparation?
-        return v => _.find(options, x => x == v);
+        return v => find(options, x => x == v);
     },
-    int(v) {
-        return TRANSFORMS.string(_.parseInt(v) || '');
+    int(v: any) {
+        return TRANSFORMS.string(parseInt(v, 10) || '');
     },
-    intArray(v) {
-        return TRANSFORMS.array(_.map(_.castArray(v), TRANSFORMS.int));
+    intArray(v: any) {
+        return TRANSFORMS.array(map(castArray(v), TRANSFORMS.int));
     },
 };
 
@@ -67,7 +67,7 @@ const OPTIONS = {
 
 const normalizeOptionValue = (value, option) => {
     // TODO - this is nonsense - it breaks enu or int transform validation
-    if (_.isString(value)) {
+    if (isString(value)) {
         return value;
     }
     return (OPTION_TRANSFORMS[option] || TRANSFORMS.string)(value);
@@ -77,12 +77,12 @@ export const serializeOptions = options => {
     if (!options) {
         return '';
     }
-    if (_.isEmpty(options)) {
+    if (isEmpty(options)) {
         return '';
     }
 
     const opts = [];
-    _.map(options, (value, option) => {
+    map(options, (value, option) => {
         if (OPTIONS[option]) {
             const normalized = normalizeOptionValue(value, option);
             if (normalized) {
