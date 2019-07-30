@@ -30,6 +30,7 @@ const OPTION_TRANSFORMS: {[key: string]: (value: any) => any} = {
     width: TRANSFORMS.int,
     height: TRANSFORMS.int,
     filter: TRANSFORMS.enum(['sepia', 'grayscale', 'sharpen', 'blur', 'negative', 'edge', 'gauss']),
+    square: TRANSFORMS.int,
     gravity: TRANSFORMS.enum([
         'north',
         'south',
@@ -54,7 +55,7 @@ const OPTIONS: {[key: string]: string} = {
     width: 'w',
     height: 'h',
     filter: 'f',
-    size: 's', // TODO - i think this should also have int transform
+    square: 's',
     gravity: 'g',
     crop: 'c',
     left: 'x',
@@ -76,10 +77,7 @@ const normalizeOptionValue = (value: string|number|string[]|number[], option: st
 };
 
 export const serializeOptions = (options: Options = {}) => {
-    if (!options) {
-        return '';
-    }
-    if (isEmpty(options)) {
+    if (!options || isEmpty(options)) {
         return '';
     }
 

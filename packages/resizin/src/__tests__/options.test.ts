@@ -19,7 +19,7 @@ describe('Options serialization', () => {
             expect(serializeOptions({ width: '10' })).toContain('w_10');
             expect(serializeOptions({ height: '20' })).toContain('h_20');
             expect(serializeOptions({ filter: 'blur' })).toContain('f_blur');
-            expect(serializeOptions({ size: 'blur' })).toContain('s_blur');
+            expect(serializeOptions({ square: '15' })).toContain('s_15');
             expect(serializeOptions({ gravity: 'east' })).toContain('g_east');
             expect(serializeOptions({ crop: 'fill' })).toContain('c_fill');
             expect(serializeOptions({ left: '15' })).toContain('x_15');
@@ -53,9 +53,15 @@ describe('Options serialization', () => {
             // expect(serializeOptions({ height: 'c90d' })).toEqual('');
         });
 
-        it('should use default string transform for size', () => {
-            expect(serializeOptions({ size: 'a4d' })).toEqual('s_a4d');
-            expect(serializeOptions({ size: 40 })).toEqual('s_40');
+        it('should transform integer value of square to string', () => {
+            expect(serializeOptions({ square: 40 })).toEqual('s_40');
+        });
+
+        it('should omit square parameter if value is not valid integer', () => {
+            expect(serializeOptions({ height: NaN })).toEqual('');
+            expect(serializeOptions({ height: Infinity })).toEqual('');
+            // Commented due to the issue in normalization, see TODO in normalizeOptionValue function
+            // expect(serializeOptions({ height: 'a4d' })).toEqual('');
         });
 
         it('should use filter value if it is one of allowed', () => {
