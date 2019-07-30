@@ -1,5 +1,3 @@
-'use strict';
-
 import _ from 'lodash';
 import { polyfill } from 'es6-promise';
 import fetch from 'isomorphic-fetch';
@@ -116,14 +114,14 @@ export const uploadImage = (url, api_key, id, file) => {
                     "Authorization": "Key " + api_key
                 }
             }
-            
+
             let formData;
             if (typeof window === 'undefined') {
                 formData = new NodeFormData();
             } else {
                 formData = new FormData();
             }
-            
+
             formData.append('id', id);
             formData.append('file', file);
             options.body = formData;

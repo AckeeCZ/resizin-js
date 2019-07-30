@@ -1,0 +1,33 @@
+{
+  "name": "@ackee/resizin",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
+  "author": "Jakub Baierl <jakub.baierl@ackee.cz>",
+  "keywords": [
+    "ackee",
+    "imageserver",
+    "javascript",
+    "library",
+    "resizin"
+  ],
+  "contributors": [
+    {
+      "name": "Jiří Šmolík",
+      "email": "jiri.smolik@ackee.cz"
+    },
+    {
+      "name": "Lukáš Horák",
+      "email": "lukas.horak@ackee.cz"
+    }
+  ],
+  "license": "MIT",
+  "readme": "README.md",
+  "repository": "https://github.com/AckeeCZ/resizin-js/",
+  "dependencies": {
+    "es6-promise": "^3.2.1",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.11.1"
+  }
+}
