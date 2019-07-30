@@ -12,10 +12,9 @@
 		// Import non-ES modules as default imports.
         "esModuleInterop": true,
         "jsx": "react",
-        "outDir": "lib"
 	},
 	"include": [
-		"src"
+		"packages"
     ],
-    "exclude": ["node_modules", "build", "lib", "stories", "**/*.story.tsx"]
+    "exclude": ["node_modules", "build", "lib", "stories", "**/*.story.tsx", "**/*.d.ts"]
 }

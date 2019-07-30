@@ -8,3 +8,4 @@ bak/
 lib/
 es/
 
+packages/*/package-lock.json
