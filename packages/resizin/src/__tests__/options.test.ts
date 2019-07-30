@@ -2,8 +2,7 @@ import { serializeOptions } from '../options';
 
 describe('Options serialization', () => {
     it('should return empty string if options not supplied', () => {
-        expect(serializeOptions(null)).toEqual('');
-        expect(serializeOptions(undefined)).toEqual('');
+        expect(serializeOptions()).toEqual('');
     });
 
     it('should return empty string if options are empty', () => {
@@ -197,5 +196,9 @@ describe('Options serialization', () => {
 
     it('should return list of serialized options delimited by dash', () => {
         expect(serializeOptions({ width: 15, height: 20, crop: 'fill' })).toBe('w_15-h_20-c_fill');
+    });
+
+    it('should return list of serialized options with ommited unknown or invalid options', () => {
+        expect(serializeOptions({ width: 45, heit: 50, crop: 45, gravity: 'west' })).toBe('w_45-g_west');
     });
 });
