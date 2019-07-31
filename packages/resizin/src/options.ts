@@ -13,7 +13,7 @@ export interface Options {
     border?: number;
     backgroundColor?: string;
     quality?: number;
-    upscale?: string; // TODO - should be boolean
+    upscale?: boolean;
 }
 
 declare type Transformation<T = any> = (value: T) => string;
@@ -43,6 +43,7 @@ const TRANSFORMS = {
         const values = castArray(v);
         return TRANSFORMS.array(map(values, TRANSFORMS.int));
     },
+    bool: (v: boolean) => (v ? '1' : ''),
 };
 
 const OPTIONS: { [key: string]: OptionDefinition } = {
@@ -74,8 +75,7 @@ const OPTIONS: { [key: string]: OptionDefinition } = {
     border: { identifier: 'b', transform: TRANSFORMS.intArray },
     backgroundColor: { identifier: 'bg' },
     quality: { identifier: 'q', transform: TRANSFORMS.int },
-    upscale: { identifier: 'u' }, // TODO - not present in https://gitlab.ack.ee/Ackee/image-server#modifiers
-    // external: 'e', TODO - missing, defined in https://gitlab.ack.ee/Ackee/image-server#modifiers
+    upscale: { identifier: 'u', transform: TRANSFORMS.bool },
 };
 
 const serializeOption = (value: any, optionName: string) => {
@@ -96,5 +96,7 @@ export const serializeOptions = (options: Options = {}) => {
         return '';
     }
 
-    return map(options, serializeOption).filter(Boolean).join('-');
+    return map(options, serializeOption)
+        .filter(Boolean)
+        .join('-');
 };

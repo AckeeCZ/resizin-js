@@ -161,14 +161,12 @@ describe('Options serialization', () => {
             expect(serializeOptions({ quality: 'i75' })).toEqual('');
         });
 
-        it('should transform integer value of upscale to string', () => {
-            expect(serializeOptions({ upscale: 30 })).toEqual('u_30');
+        it('should use upscale if it is truthy', () => {
+            expect(serializeOptions({ upscale: true })).toEqual('u_1');
         });
 
-        it('should omit upscale parameter if value is not valid integer', () => {
-            expect(serializeOptions({ upscale: NaN })).toEqual('');
-            expect(serializeOptions({ upscale: Infinity })).toEqual('');
-            expect(serializeOptions({ upscale: 'k24l' })).toEqual('');
+        it('should omit upscale if it is falsy', () => {
+            expect(serializeOptions({ upscale: false })).toEqual('');
         });
     });
 
