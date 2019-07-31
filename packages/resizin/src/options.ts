@@ -1,4 +1,4 @@
-import { isArray, map, find, castArray, isEmpty, isNumber } from 'lodash';
+import { isArray, map, find, castArray, isEmpty } from 'lodash';
 
 export interface Options {
     width?: number;
