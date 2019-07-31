@@ -1,12 +1,31 @@
-import { isArray, map, find, castArray, isString, isEmpty } from 'lodash';
+import { isArray, map, find, castArray, isEmpty } from 'lodash';
 
-export declare type Options = {[key: string]: any};
+export interface Options {
+    width?: number;
+    height?: number;
+    filter?: 'sepia' | 'grayscale' | 'sharpen' | 'blur' | 'negative' | 'edge' | 'gauss';
+    square?: number;
+    gravity?: 'north' | 'south' | 'east' | 'center' | 'west' | 'northeast' | 'southeast' | 'southwest' | 'face';
+    crop?: 'fill' | 'fit' | 'pad' | 'scale' | 'cut' | 'face';
+    left?: number;
+    top?: number;
+    rotate?: 90 | 180 | 270 | 360;
+    border?: number;
+    backgroundColor?: string;
+    quality?: number;
+    upscale?: string; // TODO - should be boolean
+}
+
+declare type Transformation<T = any> = (value: T) => string;
+
+interface OptionDefinition<T = any> {
+    identifier: string;
+    transform?: Transformation<T>;
+}
 
 const TRANSFORMS = {
-    string(v: string|number) {
-        return String(v || '');
-    },
-    array(v: any) {
+    string: (v: any): string => (v || '').toString(),
+    array: (v: any): string => {
         switch (true) {
             case isArray(v):
                 return map(v, TRANSFORMS.string).join('_');
@@ -14,66 +33,62 @@ const TRANSFORMS = {
                 return TRANSFORMS.string(v);
         }
     },
-    enum(options: number[]|string[]) {
-        // TODO - why do we need weak comparation?
-        return (v: string|number) => find(options, x => x == v);
+    enum: (options: number[] | string[]) => (v: string | number) => {
+        const val = find(options, option => option === v);
+
+        return TRANSFORMS.string(val);
     },
-    int(v: string) {
-        return TRANSFORMS.string(parseInt(v, 10) || '');
-    },
-    intArray(v: string|string[]) {
-        return TRANSFORMS.array(map(castArray(v), TRANSFORMS.int));
+    int: (v: string): string => TRANSFORMS.string(parseInt(v, 10) || ''),
+    intArray: (v: string | string[]): string => {
+        const values = castArray(v);
+        return TRANSFORMS.array(map(values, TRANSFORMS.int));
     },
 };
 
-const OPTION_TRANSFORMS: {[key: string]: (value: any) => any} = {
-    width: TRANSFORMS.int,
-    height: TRANSFORMS.int,
-    filter: TRANSFORMS.enum(['sepia', 'grayscale', 'sharpen', 'blur', 'negative', 'edge', 'gauss']),
-    square: TRANSFORMS.int,
-    gravity: TRANSFORMS.enum([
-        'north',
-        'south',
-        'east',
-        'center',
-        'west',
-        'northeast',
-        'southeast',
-        'southwest',
-        'face',
-    ]),
-    crop: TRANSFORMS.enum(['fill', 'fit', 'pad', 'scale', 'cut', 'face']),
-    left: TRANSFORMS.int,
-    top: TRANSFORMS.int,
-    rotate: TRANSFORMS.enum([90, 180, 270, 360]),
-    border: TRANSFORMS.intArray,
-    quality: TRANSFORMS.int,
-    upscale: TRANSFORMS.int,
-};
-
-const OPTIONS: {[key: string]: string} = {
-    width: 'w',
-    height: 'h',
-    filter: 'f',
-    square: 's',
-    gravity: 'g',
-    crop: 'c',
-    left: 'x',
-    top: 'y',
-    rotate: 'r',
-    border: 'b',
-    backgroundColor: 'bg',
-    quality: 'q',
-    upscale: 'u', // TODO - not present in https://gitlab.ack.ee/Ackee/image-server#modifiers
+const OPTIONS: { [key: string]: OptionDefinition } = {
+    width: { identifier: 'w', transform: TRANSFORMS.int },
+    height: { identifier: 'h', transform: TRANSFORMS.int },
+    filter: {
+        identifier: 'f',
+        transform: TRANSFORMS.enum(['sepia', 'grayscale', 'sharpen', 'blur', 'negative', 'edge', 'gauss']),
+    },
+    square: { identifier: 's', transform: TRANSFORMS.int },
+    gravity: {
+        identifier: 'g',
+        transform: TRANSFORMS.enum([
+            'north',
+            'south',
+            'east',
+            'center',
+            'west',
+            'northeast',
+            'southeast',
+            'southwest',
+            'face',
+        ]),
+    },
+    crop: { identifier: 'c', transform: TRANSFORMS.enum(['fill', 'fit', 'pad', 'scale', 'cut', 'face']) },
+    left: { identifier: 'x', transform: TRANSFORMS.int },
+    top: { identifier: 'y', transform: TRANSFORMS.int },
+    rotate: { identifier: 'r', transform: TRANSFORMS.enum([90, 180, 270, 360]) },
+    border: { identifier: 'b', transform: TRANSFORMS.intArray },
+    backgroundColor: { identifier: 'bg' },
+    quality: { identifier: 'q', transform: TRANSFORMS.int },
+    upscale: { identifier: 'u' }, // TODO - not present in https://gitlab.ack.ee/Ackee/image-server#modifiers
     // external: 'e', TODO - missing, defined in https://gitlab.ack.ee/Ackee/image-server#modifiers
 };
 
-const normalizeOptionValue = (value: string|number|string[]|number[], option: string) => {
-    // TODO - this is nonsense - it breaks enu or int transform validation
-    if (isString(value)) {
-        return value;
+const serializeOption = (value: any, optionName: string) => {
+    const option = OPTIONS[optionName];
+
+    if (!option) {
+        return '';
     }
-    return (OPTION_TRANSFORMS[option] || TRANSFORMS.string)(value);
+
+    const transform = option.transform || TRANSFORMS.string;
+    const normalizedValue = transform(value);
+
+    return normalizedValue ? `${option.identifier}_${normalizedValue}` : '';
 };
 
 export const serializeOptions = (options: Options = {}) => {
@@ -81,14 +96,5 @@ export const serializeOptions = (options: Options = {}) => {
         return '';
     }
 
-    const opts: string[] = [];
-    map(options, (value, option) => {
-        if (OPTIONS[option]) {
-            const normalized = normalizeOptionValue(value, option);
-            if (normalized) {
-                opts.push(`${OPTIONS[option]}_${normalized}`);
-            }
-        }
-    });
-    return opts.join('-');
+    return map(options, serializeOption).filter(Boolean).join('-');
 };
