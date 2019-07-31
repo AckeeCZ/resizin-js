@@ -12,4 +12,4 @@ Packages for easy use of Ackee image server [Resizin](https://www.resizin.com) f
 
 Consists of
 
-* [@ackee/resizin](packages/resizin/README.md)
+* [resizin](packages/resizin/README.md) - core package containing base functions for communicating with image server
