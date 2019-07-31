@@ -1,4 +1,4 @@
-import { isArray, map, find, castArray, isEmpty } from 'lodash';
+import { isArray, map, find, castArray, isEmpty, isNumber } from 'lodash';
 
 export interface Options {
     width?: number;
@@ -40,8 +40,8 @@ const TRANSFORMS = {
     },
     int: (v: string): string => TRANSFORMS.string(parseInt(v, 10) || ''),
     intArray: (v: string | string[]): string => {
-        const values = castArray(v);
-        return TRANSFORMS.array(map(values, TRANSFORMS.int));
+        const values = map(castArray(v), TRANSFORMS.int);
+        return values.some(isEmpty) ? '' : TRANSFORMS.array(values);
     },
     bool: (v: boolean) => (v ? '1' : ''),
 };
