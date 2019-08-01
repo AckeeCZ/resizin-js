@@ -1,5 +1,5 @@
 {
-  "name": "resizin",
+  "name": "resizin-js",
   "private": true,
   "scripts": {
     "build": "./scripts/build.sh",
