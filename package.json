@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "./scripts/build.sh",
+    "bootstrap": "npm i && lerna bootstrap",
     "check": "npm run lint && npm run type-check",
     "lint": "tslint \"packages/*/src/**/*.{ts,tsx}\"",
     "type-check": "tsc --noEmit",
@@ -42,7 +43,9 @@
       "/node_modules",
       "/lib"
     ],
-    "setupFilesAfterEnv": ["./configure-jest.js"],
+    "setupFilesAfterEnv": [
+      "./configure-jest.js"
+    ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },

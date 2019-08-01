@@ -4,6 +4,7 @@ bak/
 .idea
 *.log
 *.iml
+coverage
 
 lib/
 es/
