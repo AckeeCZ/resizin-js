@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import NodeFormData from 'form-data';
 import Promise from 'promise-polyfill';
 
-export const uploadImage = (url?: string, api_key?: string, id?: string, file?: string) => {
+export const uploadImage = (url: string, api_key: string, id: string, file: string) => {
     return Promise.resolve().then(() => {
         if (!url) {
             throw new Error('Url is missing!');
