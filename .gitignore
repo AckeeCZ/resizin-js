@@ -4,8 +4,7 @@ bak/
 .idea
 *.log
 *.iml
+coverage
 
 lib/
 es/
-
-packages/*/package-lock.json

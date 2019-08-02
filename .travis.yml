@@ -1,7 +1,12 @@
 language: node_js
 node_js:
 - 8
-script: npm run check && npm test && npm i && npm run build
+script:
+- npm run bootstrap
+- npm run check
+- npm run test:coverage
+- npm run test:coveralls
+- npm run build
 deploy:
   provider: npm
   email: ackeedevelopment@gmail.com
