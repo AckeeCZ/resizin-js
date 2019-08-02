@@ -1,9 +1,11 @@
+node_modules/
+bak/
 .DS_Store
 .idea
+*.log
 *.iml
-node_modules/
-www/build/
-index.html
-*.log*
-npm-debug.log
-stats/
+
+lib/
+es/
+
+packages/*/package-lock.json
