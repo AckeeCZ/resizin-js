@@ -2,12 +2,12 @@ import fetch from 'isomorphic-fetch';
 import NodeFormData from 'form-data';
 import Promise from 'promise-polyfill';
 
-export const uploadImage = (url: string, api_key: string, id: string, file: string) => {
+export const uploadImage = (url: string, apiKey: string, id: string, file: string) => {
     return Promise.resolve().then(() => {
         if (!url) {
             throw new Error('Url is missing!');
         }
-        if (!api_key) {
+        if (!apiKey) {
             throw new Error('API KEY is missing!');
         }
         if (!id) {
@@ -17,10 +17,10 @@ export const uploadImage = (url: string, api_key: string, id: string, file: stri
             throw new Error('Body is missing!'); // TODO - change to "File is missing"
         }
 
-        let options: any = {
+        const options: any = {
             method: 'POST',
             headers: {
-                Authorization: 'Key ' + api_key,
+                Authorization: 'Key ' + apiKey,
             },
         };
 
@@ -36,8 +36,8 @@ export const uploadImage = (url: string, api_key: string, id: string, file: stri
         formData.append('file', file);
         options.body = formData;
 
-        return fetch(url, options).then(function(response) {
-            return response.json().then(function(res) {
+        return fetch(url, options).then((response) => {
+            return response.json().then((res) => {
                 if (response.status >= 400) {
                     throw new Error(res.message || 'Bad response from server!');
                 }

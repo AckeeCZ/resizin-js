@@ -10,10 +10,7 @@
 		// Don't emit; allow Babel to transform files.
 		"noEmit": true,
 		// Enable strictest settings like strictNullChecks & noImplicitAny.
-
-        // TODO - disabled strict until end of refactor phase
-        "strict": false,
-
+        "strict": true,
         // Disallow features that require cross-file information for emit.
 		"isolatedModules": true,
 		// Import non-ES modules as default imports.
@@ -24,5 +21,5 @@
 	"include": [
 		"packages/*/src"
     ],
-    "exclude": ["node_modules", "build", "packages/*/lib", "stories", "**/*.story.tsx"]
+    "exclude": ["node_modules", "build", "packages/*/lib", "stories", "**/*.story.tsx", "**/*/__tests__"]
 }

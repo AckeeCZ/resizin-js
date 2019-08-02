@@ -1,6 +1,6 @@
-import { serializeOptions } from './options';
+import { serializeOptions, Options } from './options';
 
-export const buildSource = (base, bucket, imageId, options) => {
+export const buildSource = (base: string, bucket: string, imageId: string, options?: Options) => {
     let serializedOptions = serializeOptions(options);
     if (serializedOptions) {
         serializedOptions += '/';

@@ -1,94 +1,102 @@
-import _ from 'lodash';
+import { isArray, map, find, castArray, isEmpty } from 'lodash';
+
+export interface Options {
+    width?: number;
+    height?: number;
+    filter?: 'sepia' | 'grayscale' | 'sharpen' | 'blur' | 'negative' | 'edge' | 'gauss';
+    square?: number;
+    gravity?: 'north' | 'south' | 'east' | 'center' | 'west' | 'northeast' | 'southeast' | 'southwest' | 'face';
+    crop?: 'fill' | 'fit' | 'pad' | 'scale' | 'cut' | 'face';
+    left?: number;
+    top?: number;
+    rotate?: 90 | 180 | 270 | 360;
+    border?: number;
+    backgroundColor?: string;
+    quality?: number;
+    upscale?: boolean;
+}
+
+declare type Transformation<T = any> = (value: T) => string;
+
+interface OptionDefinition<T = any> {
+    identifier: string;
+    transform?: Transformation<T>;
+}
 
 const TRANSFORMS = {
-    string(v) {
-        return String(v || '');
-    },
-    array(v) {
+    string: (v: any): string => (v || '').toString(),
+    array: (v: any): string => {
         switch (true) {
-            case _.isArray(v):
-                return _.map(v, TRANSFORMS.string).join('_');
+            case isArray(v):
+                return map(v, TRANSFORMS.string).join('_');
             default:
                 return TRANSFORMS.string(v);
         }
     },
-    enu(options) {
-        // TODO - why do we need weak comparation?
-        return v => _.find(options, x => x == v);
+    enum: (options: number[] | string[]) => (v: string | number) => {
+        const val = find(options, option => option === v);
+
+        return TRANSFORMS.string(val);
     },
-    int(v) {
-        return TRANSFORMS.string(_.parseInt(v) || '');
+    int: (v: string): string => TRANSFORMS.string(parseInt(v, 10) || ''),
+    intArray: (v: string | string[]): string => {
+        const values = map(castArray(v), TRANSFORMS.int);
+        return values.some(isEmpty) ? '' : TRANSFORMS.array(values);
     },
-    intArray(v) {
-        return TRANSFORMS.array(_.map(_.castArray(v), TRANSFORMS.int));
+    bool: (v: boolean) => (v ? '1' : ''),
+};
+
+const OPTIONS: { [key: string]: OptionDefinition } = {
+    width: { identifier: 'w', transform: TRANSFORMS.int },
+    height: { identifier: 'h', transform: TRANSFORMS.int },
+    filter: {
+        identifier: 'f',
+        transform: TRANSFORMS.enum(['sepia', 'grayscale', 'sharpen', 'blur', 'negative', 'edge', 'gauss']),
     },
+    square: { identifier: 's', transform: TRANSFORMS.int },
+    gravity: {
+        identifier: 'g',
+        transform: TRANSFORMS.enum([
+            'north',
+            'south',
+            'east',
+            'center',
+            'west',
+            'northeast',
+            'southeast',
+            'southwest',
+            'face',
+        ]),
+    },
+    crop: { identifier: 'c', transform: TRANSFORMS.enum(['fill', 'fit', 'pad', 'scale', 'cut', 'face']) },
+    left: { identifier: 'x', transform: TRANSFORMS.int },
+    top: { identifier: 'y', transform: TRANSFORMS.int },
+    rotate: { identifier: 'r', transform: TRANSFORMS.enum([90, 180, 270, 360]) },
+    border: { identifier: 'b', transform: TRANSFORMS.intArray },
+    backgroundColor: { identifier: 'bg' },
+    quality: { identifier: 'q', transform: TRANSFORMS.int },
+    upscale: { identifier: 'u', transform: TRANSFORMS.bool },
 };
 
-const OPTION_TRANSFORMS = {
-    width: TRANSFORMS.int,
-    height: TRANSFORMS.int,
-    filter: TRANSFORMS.enu(['sepia', 'grayscale', 'sharpen', 'blur', 'negative', 'edge', 'gauss']),
-    gravity: TRANSFORMS.enu([
-        'north',
-        'south',
-        'east',
-        'center',
-        'west',
-        'northeast',
-        'southeast',
-        'southwest',
-        'face',
-    ]),
-    crop: TRANSFORMS.enu(['fill', 'fit', 'pad', 'scale', 'cut', 'face']),
-    left: TRANSFORMS.int,
-    top: TRANSFORMS.int,
-    rotate: TRANSFORMS.enu([90, 180, 270, 360]),
-    border: TRANSFORMS.intArray,
-    quality: TRANSFORMS.int,
-    upscale: TRANSFORMS.int,
-};
+const serializeOption = (value: any, optionName: string) => {
+    const option = OPTIONS[optionName];
 
-const OPTIONS = {
-    width: 'w',
-    height: 'h',
-    filter: 'f',
-    size: 's', // TODO - i think this should also have int transform
-    gravity: 'g',
-    crop: 'c',
-    left: 'x',
-    top: 'y',
-    rotate: 'r',
-    border: 'b',
-    backgroundColor: 'bg',
-    quality: 'q',
-    upscale: 'u', // TODO - not present in https://gitlab.ack.ee/Ackee/image-server#modifiers
-    // external: 'e', TODO - missing, defined in https://gitlab.ack.ee/Ackee/image-server#modifiers
-};
-
-const normalizeOptionValue = (value, option) => {
-    // TODO - this is nonsense - it breaks enu or int transform validation
-    if (_.isString(value)) {
-        return value;
-    }
-    return (OPTION_TRANSFORMS[option] || TRANSFORMS.string)(value);
-};
-
-export const serializeOptions = options => {
-    if (!options) {
-        return '';
-    }
-    if (_.isEmpty(options)) {
+    if (!option) {
         return '';
     }
 
-    const opts = [];
-    _.map(options, (value, option) => {
-        if (OPTIONS[option]) {
-            const normalized = normalizeOptionValue(value, option);
-            if (normalized) {
-                opts.push(`${OPTIONS[option]}_${normalized}`);
-            }
-        }
-    });
-    return opts.join('-');
+    const transform = option.transform || TRANSFORMS.string;
+    const normalizedValue = transform(value);
+
+    return normalizedValue ? `${option.identifier}_${normalizedValue}` : '';
+};
+
+export const serializeOptions = (options: Options = {}) => {
+    if (!options || isEmpty(options)) {
+        return '';
+    }
+
+    return map(options, serializeOption)
+        .filter(Boolean)
+        .join('-');
 };
