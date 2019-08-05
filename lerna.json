@@ -6,8 +6,7 @@
   },
   "command": {
     "version": {
-      "allowBranch": "master",
-      "noPush": true
+      "allowBranch": "master"
     },
     "publish": {
         "allowBranch": "master"
