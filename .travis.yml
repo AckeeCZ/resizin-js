@@ -18,5 +18,4 @@ deploy:
   on:
     node: "10"
     tags: true
-    branch: master
 
