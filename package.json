@@ -4,7 +4,7 @@
   "scripts": {
     "build": "./scripts/build.sh",
     "bootstrap": "lerna bootstrap",
-    "lerna:publish": "lerna publish from-git --yes --npm-tag beta",
+    "lerna:publish": "lerna publish from-package --yes --npm-tag beta",
     "lerna:version": "lerna version $1",
     "check": "npm run lint && npm run type-check",
     "lint": "tslint \"packages/*/src/**/*.{ts,tsx}\"",
