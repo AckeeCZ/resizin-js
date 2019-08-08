@@ -36,7 +36,9 @@ const uploadImage = (serverUrl: string, apiKey: string, imageId: string, file: s
         formData.append('file', file);
         options.body = formData;
 
-        return fetch(serverUrl, options).then((response) => {
+        const url = `${serverUrl}/api/v1/image/upload`;
+
+        return fetch(url, options).then((response) => {
             return response.json().then((res) => {
                 if (response.status >= 400) {
                     throw new Error(res.message || 'Bad response from server!');
