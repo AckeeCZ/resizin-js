@@ -1,3 +1,2 @@
-export { default as upload } from './upload';
-export { default as buildUrl } from './buildUrl';
-export { default } from './client';
+export { default as upload, uploadFactory } from './upload';
+export { default as buildUrl, buildUrlFactory } from './buildUrl';

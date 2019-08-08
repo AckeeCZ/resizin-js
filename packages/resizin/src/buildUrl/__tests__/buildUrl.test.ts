@@ -1,7 +1,7 @@
 import buildUrl from '../buildUrl';
-import { serializeOptions } from '../options';
+import { serializeOptions } from '../../options';
 
-jest.mock('../options');
+jest.mock('../../options');
 
 describe('Build source url', () => {
     it('use append slash to serialized options and make the url', () => {

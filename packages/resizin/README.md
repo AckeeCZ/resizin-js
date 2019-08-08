@@ -4,20 +4,22 @@
 
 
 # resizin
-[![Bundlephobia](https://img.shields.io/bundlephobia/minzip/resizin.svg)](https://badgen.net/bundlephobia/minzip/resizin)
+[![Bundlephobia](https://img.shields.io/bundlephobia/minzip/resizin.svg)](https://bundlephobia.com/result?p=resizin@0.1.0)
 
 Core package for uploading images and building url of images from [Resizin](https://resizin.com).
 
 ## Table of contents
 
 * [Installation](#installation)
+* [Quick start](#quick-start)
 * [API](#api)
-    * [`clientFactory(options)`](#clientfactory)
     * [`buildUrl(serverUrl, bucket, imageId, options)`](#build-url)
+    * [`buildUrlFactory(options)`](#clientfactory)
     * [Modifiers](#modifiers)
     * [`upload(serverUrl, apiKey, imageId, file)`](#upload)
+    * [`uploadFactory(options)`](#upload-factory)
 
-## <a name="installation"></a>Installation
+## Installation
 
 Using npm:
 
@@ -31,69 +33,41 @@ Using yarn:
 yarn add @ackee/resizin
 ```
 
-## API
+## Quick start
 
-### `clientFactory(options: ClientOptions): ResizinClient`
+```javascript
+import { buildUrlFactory, uploadFactory } from 'resizin';
+import config from '../config';
 
-```typescript
-interface ClientOptions {
-    serverUrl?: string;
-    bucket?: string;
-    apiKey?: string;
-}
-```
-
-
-```typescript
-interface ResizinClient {
-    buildUrl(imageId, options);
-    upload(imageId, file);
-}
-```
-
-#### Building image url
-
-```js
-import clientFactory from 'resizin';
-
-const client = clientFactory({
-    serverUrl: 'https://img.resizin.com',
+// Building image url
+const buildUrl = buildUrlFactory({
     bucket: 'ackee',
 });
  
-const image = client.buildUrl('walle',  { width: 250 });
+const imageUrl = buildUrl('walle',  { width: 250,  });
+
+// Uploading image
+const upload = uploadFactory({
+    apiKey: config.RESIZIN_API_KEY
+})
+
+upload(client.upload("Walle on the road", files[0]);
 ```
 
-You can omit `serverUrl` option when it's  `https://img.resizin.com`, because it's a default value:
-
-```js
-import clientFactory from 'resizin';
-
-const client = clientFactory({ bucket: 'ackee' });
-```
-
-#### Uploading image
-
-TBD
-
-```js
-import clientFactory from 'resizin';
-
-const client = clientFactory({
-    uploadUrl: 'https://api.resizin.com/api/v1/image/upload', 
-            api_key = "56ebbff9276e563e008687d1",
-    bucket: 'ackee',
-});
-
-client.upload()
-```
-
-___
+## API
 
 ### `buildUrl(serverUrl, bucket, imageId, options?: Options): string`
 
+Return url of the image that is available at image server modified according to provided options.  
+
+To avoid repeating information that doesn't change acroos an app like `serverUrl` and `bucket`, take a look at [`buildUrlFactory`](#build-factory).
+
 ```js
-const image = client.buildUrl(
+import { buildUrl } from 'resizin';
+
+const image = buildUrl(
+    'https://img.resizin.com',
+    'ackee',
     'walle', 
     {
         width: 250, 
@@ -106,6 +80,43 @@ const image = client.buildUrl(
 
 And result image is  
 ![Example image 1](https://img.resizin.com/ackee/image/w_250-f_sharpen-b_10_10_10_60-bg_00bcd4/walle)
+
+For a complete list of modifiers look at the standalone [modifiers](#modifiers) section.
+
+___
+
+### `buildUrlFactory(options: ClientOptions): function`
+
+```typescript
+interface ClientOptions {
+    serverUrl?: string;
+    bucket: string;
+}
+```
+
+Returns [`buildUrl`]() method with shortened interface `buildUrl(imageId: string, options: options)`
+
+```js
+import { buildUrlFactory } from 'resizin';
+
+const buildUrl = buildUrlFactory({
+    serverUrl: 'https://img.resizin.com',
+    bucket: 'ackee',
+});
+ 
+const imageUrl = buildUrl('walle',  { width: 250, top: 20, left: 50 });
+const secondImageUrl = buildUrl('walle',  { filter: 'negative', rotate: 180 });
+```
+
+You can omit `serverUrl` option when it's  `https://img.resizin.com` as it is a default value
+
+```js
+import { buildUrlFactory } from 'resizin';
+
+const buildUrl = buildUrlFactory({ bucket: 'ackee' });
+```
+
+___
 
 ### Modifiers
 You can try all modifiers at <a href="https://resizin.com/" target="_blank">Interactive documentation</a>.
@@ -128,45 +139,96 @@ You can try all modifiers at <a href="https://resizin.com/" target="_blank">Inte
 
 ___
 
-### `upload(serverUrl, apiKey, imageId, file: string)`
 
-TBD
+### `upload(serverUrl, apiKey, imageId, file): Promise`
 
-```javascript
-        const bucketUploader = uploadImage.bind(
-            null, 
-            url = "https://imageserver-admin-api.ack.ee/api/v1/image/upload", 
-            api_key = "56ebbff9276e563e008687d1"
-        );
+```js
+import { upload } from 'resizin';
+
+upload(
+    'https://api.resizin.com',
+    config.RESIZIN_API_KEY,
+    'Walle on the road',
+    files[0]
+).then(() => {
+    ...
+});
 ```
+
+To avoid repeating information that doesn't change acroos an app like `serverUrl` and `apiKey`, take a look at [`uploadFactory`](#upload-factory).
+
     
-### Upload
-* Upload in browser (get file using jQuery)
-    ```javascript
-        $('#fileinput').live('change', function(){ 
-          	var files = $('#fileinput').prop('files');
-            var promise = bucketUploader( 
-                id = "File name", 
-                files[0]
-            );
-        });
-    ```
+Examples from the wild:
+
+#### Upload in client (get file using jQuery)
+
+Assume you have a file input in your page
+
+```HTML
+<input type="file" id="fileinput" />
+```
+
+then
+
+```js
+import { upload } from 'resizin';
+
+$('#fileinput').live('change', function(){ 
+    var files = $('#fileinput').prop('files');
     
-    ```HTML
-        <input type="file" id="fileinput" />
-    ```
+    upload(
+        'https://api.resizin.com',
+        config.RESIZIN_API_KEY,
+        'imageid', 
+        files[0]
+    ).then(() => {
+        ...      
+    });
+});
+```
 
-* Upload in Node.js
-    ```javascript
-        const fs = require('fs');
+#### Upload in Node.js
+```js
+const resizin = require('resizin');
+const fs = require('fs');
+const config = require('../config');
 
-        const file = fs.createReadStream(__dirname + '/myfile.png');
-        var promise = bucketUploader(
-            'imageid', 
-            file
-        );
-    ```
+const file = fs.createReadStream(__dirname + '/myfile.png');
+var promise = resizin.upload(
+    'https://api.resizin.com',
+    config.RESIZIN_API_KEY,
+    'imageid', 
+    file
+);
+```
 
+### `uploadFactory(options: Options): function`
+
+```typescript
+interface Options {
+    serverUrl?: string;
+    apiKey: string;
+}
+```
+
+```js
+import { uploadFactory } from 'resizin';
+
+const upload = uploadFactory({
+    serverUrl: 'https://api.resizin.com', 
+    apiKey: config.RESIZIN_API_KEY,
+});
+
+upload("Walle on the road", files[0]);
+```
+
+You can omit `serverUrl` option when it's  `https://api.resizin.com` as it is a default value
+
+```js
+import { uploadFactory } from 'resizin';
+
+const upload = uploadFactory({ apiKey: config.RESIZIN_API_KEY });
+```
 
 ## License
 
