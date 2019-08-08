@@ -1,3 +1,2 @@
-export { serializeOptions } from './options';
-export { uploadImage } from './upload';
-export { buildSource } from './source';
+export { default as upload } from './upload';
+export { default as buildUrl } from './buildUrl';

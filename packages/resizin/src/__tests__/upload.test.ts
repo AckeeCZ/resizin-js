@@ -1,4 +1,4 @@
-import { uploadImage } from '../upload';
+import uploadImage from '../upload';
 import fetch from 'isomorphic-fetch';
 
 jest.mock('isomorphic-fetch');
