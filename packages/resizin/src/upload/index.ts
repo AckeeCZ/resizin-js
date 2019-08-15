@@ -1,2 +1,2 @@
 export { default } from './upload';
-export { default as uploadFactory };
+export { default as uploadFactory } from './factory';

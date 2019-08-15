@@ -1,2 +1,2 @@
 export { default } from './buildUrl';
-export { default as buildUrlFactory };
+export { default as buildUrlFactory } from './factory';
