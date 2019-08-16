@@ -4,7 +4,7 @@
 
 
 # resizin
-[![Bundlephobia](https://img.shields.io/bundlephobia/minzip/resizin.svg)](https://bundlephobia.com/result?p=resizin@0.1.0)
+[![Bundlephobia](https://img.shields.io/bundlephobia/minzip/resizin.svg)](https://bundlephobia.com/result?p=resizin)
 
 Core package for uploading images and building url of images from [Resizin](https://resizin.com).
 
@@ -44,7 +44,7 @@ const buildUrl = buildUrlFactory({
     bucket: 'ackee',
 });
  
-const imageUrl = buildUrl('walle',  { width: 250,  });
+const imageUrl = buildUrl('walle',  { width: 250 });
 
 // Uploading image
 const upload = uploadFactory({
@@ -60,7 +60,7 @@ upload(client.upload("Walle on the road", files[0]);
 
 Return url of the image that is available at image server modified according to provided options.  
 
-To avoid repeating information that doesn't change acroos an app like `serverUrl` and `bucket`, take a look at [`buildUrlFactory`](#build-factory).
+To avoid repeating information that doesn't change across the app like `serverUrl` and `bucket`, take a look at [`buildUrlFactory`](#build-factory).
 
 ```js
 import { buildUrl } from 'resizin';
