@@ -1,0 +1,30 @@
+{
+"name": "node-resizin",
+  "version": "0.1.0",
+  "description": "Node package for uploading to the image server Resizin",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
+  "author": "Dominik Veselý <dominik.vesely@ackee.cz>",
+  "keywords": [
+    "ackee",
+    "imageserver",
+    "javascript",
+    "nodejs",
+    "library",
+    "resizin"
+  ],
+  "contributors": [
+    {
+      "name": "Lukáš Horák",
+      "email": "lukas.horak@ackee.cz"
+    }
+  ],
+  "license": "MIT",
+  "readme": "README.md",
+  "repository": "https://github.com/AckeeCZ/resizin-js/",
+  "dependencies": {
+    "form-data": "^2.1.4",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
