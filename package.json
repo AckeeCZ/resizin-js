@@ -2,7 +2,10 @@
   "name": "resizin-js",
   "private": true,
   "scripts": {
-    "build": "./scripts/build.sh",
+    "build": "npm run build:sources && npm run build:types",
+    "build:sources": "lerna exec -- babel src -d lib -x \".ts,.tsx\" --config-file=../../babel.config.js --ignore \"**/*.story.tsx,**/*.d.ts\" --ignore \"__tests__\"",
+    "build:types": "lerna exec -- tsc -p ../../tsconfig.types.json --emitDeclarationOnly --outDir lib",
+    "clean": "lerna exec -- rm -r lib",
     "bootstrap": "lerna bootstrap",
     "lerna:publish": "lerna publish from-package --yes",
     "lerna:version": "lerna version $1",

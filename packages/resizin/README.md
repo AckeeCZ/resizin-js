@@ -2,112 +2,233 @@
 
 ![](http://static1.1.sqspcdn.com/static/f/207938/4844797/1258911333857/12345under.jpg)
 
-# SDK for Image Server services
 
-Contains uploading component for upload images and build component to easily building URL for getting chosen image from server.
-Interactive documentation <a href="https://imageserver.ack.ee/" target="_blank">here</a>.
+# resizin
+[![Bundlephobia](https://img.shields.io/bundlephobia/minzip/resizin.svg)](https://bundlephobia.com/result?p=resizin)
 
-## Upload component
+Core package for uploading images and building url of images from [Resizin](https://resizin.com).
 
-* Package import
-    ``` javascript
-        ES5: const uploadImage = require("ackee-image-server").uploadImage; 
-        ES6: import { uploadImage } from "ackee-image-server";
-    ```
-     
-* Initialization
-    ```javascript
-        const bucketUploader = uploadImage.bind(
-            null, 
-            url = "https://imageserver-admin-api.ack.ee/api/v1/image/upload", 
-            api_key = "56ebbff9276e563e008687d1"
-        );
-    ```
-    
-### Upload
-* Upload in browser (get file using jQuery)
-    ```javascript
-        $('#fileinput').live('change', function(){ 
-          	var files = $('#fileinput').prop('files');
-            var promise = bucketUploader( 
-                id = "File name", 
-                files[0]
-            );
-        });
-    ```
-    
-    ```HTML
-        <input type="file" id="fileinput" />
-    ```
+## Table of contents
 
-* Upload in Node.js
-    ```javascript
-        const fs = require('fs');
+* [Installation](#installation)
+* [Quick start](#quick-start)
+* [API](#api)
+    * [`buildUrl(serverUrl, bucket, imageId, options)`](#build-url)
+    * [`buildUrlFactory(options)`](#clientfactory)
+    * [Modifiers](#modifiers)
+    * [`upload(serverUrl, apiKey, imageId, file)`](#upload)
+    * [`uploadFactory(options)`](#upload-factory)
 
-        const file = fs.createReadStream(__dirname + '/myfile.png');
-        var promise = bucketUploader(
-            'imageid', 
-            file
-        );
-    ```
+## Installation
 
-## Build URL component
+Using npm:
 
-* Package import
-    ```javascript
-        ES5: const buildSource = require("ackee-image-server").buildSource;
-        ES6: import { buildSource } from "ackee-image-server";
-    ```
+```sh
+npm i -s @ackee/resizin
+```
 
-* Bucket initialization
-    ```javascript
-        const bucketBuilder = buildSource.bind(
-            null, 
-            url = 'https://img.ack.ee', 
-            bucket_alias = "test"
-        );
-    ```
+Using yarn:
 
-* Building URL
-    ```javascript
-        var url = bucketBuilder(
-            id = 'pepus', 
-            {
-                width: 250, 
-                left: '20', 
-                filter: 'sepia', 
-                rotate: 90, 
-                border: [10, 20]
-            }
-        )
-    ```
+```sh
+yarn add @ackee/resizin
+```
 
-* Result
+## Quick start
 
-Built URL in a HTML element `<img>`
+```javascript
+import { buildUrlFactory, uploadFactory } from 'resizin';
+import config from '../config';
 
-![alt tag](https://img.ack.ee/test/image/w_250-x_20-f_sepia-r_90-b_10_20/pepus)
+// Building image url
+const buildUrl = buildUrlFactory({
+    bucket: 'ackee',
+});
+ 
+const imageUrl = buildUrl('walle',  { width: 250 });
 
-* Modifiers
-List of available modifiers.
+// Uploading image
+const upload = uploadFactory({
+    apiKey: config.RESIZIN_API_KEY
+})
 
-| Modifier   |      Shortcut      |  Available options |
+upload(client.upload("Walle on the road", files[0]);
+```
+
+## API
+
+### `buildUrl(serverUrl, bucket, imageId, options?: Options): string`
+
+Return url of the image that is available at image server modified according to provided options.  
+
+To avoid repeating information that doesn't change across the app like `serverUrl` and `bucket`, take a look at [`buildUrlFactory`](#build-factory).
+
+```js
+import { buildUrl } from 'resizin';
+
+const image = buildUrl(
+    'https://img.resizin.com',
+    'ackee',
+    'walle', 
+    {
+        width: 250, 
+        filter: 'sharpen', 
+        backgroundColor: '00bcd4',
+        border: [10, 60, 10, 10]
+    }
+)
+```
+
+And result image is  
+![Example image 1](https://img.resizin.com/ackee/image/w_250-f_sharpen-b_10_10_10_60-bg_00bcd4/walle)
+
+For a complete list of modifiers look at the standalone [modifiers](#modifiers) section.
+
+___
+
+### `buildUrlFactory(options: ClientOptions): function`
+
+```typescript
+interface ClientOptions {
+    serverUrl?: string;
+    bucket: string;
+}
+```
+
+Returns [`buildUrl`]() method with shortened interface `buildUrl(imageId: string, options: options)`
+
+```js
+import { buildUrlFactory } from 'resizin';
+
+const buildUrl = buildUrlFactory({
+    serverUrl: 'https://img.resizin.com',
+    bucket: 'ackee',
+});
+ 
+const imageUrl = buildUrl('walle',  { width: 250, top: 20, left: 50 });
+const secondImageUrl = buildUrl('walle',  { filter: 'negative', rotate: 180 });
+```
+
+You can omit `serverUrl` option when it's  `https://img.resizin.com` as it is a default value
+
+```js
+import { buildUrlFactory } from 'resizin';
+
+const buildUrl = buildUrlFactory({ bucket: 'ackee' });
+```
+
+___
+
+### Modifiers
+You can try all modifiers at <a href="https://resizin.com/" target="_blank">Interactive documentation</a>.
+
+| Modifier   |       Available options |
 |----------|:-------------:|------:|
-| width | w | |
-| height | h | |
-| filter | f | sepia, grayscale, sharpen, blur, negative, edge, gauss |
-| size | s | |
-| gravity | g | north, south, east, center, west, northeast, southeast, southwest, face |
-| crop | c | fill, fit, pad, scale, cut, face |
-| left | l | |
-| top | t | |
-| rotate | r | 90, 180, 270, 360 |
-| border | b | [top, right, bottom, left] |
-| backgroundColor | bg | #hexColor, rgb() |
-| quality | q | |
-| upscale | u | |
+| width | |
+| height | |
+| filter | sepia, grayscale, sharpen, blur, negative, edge, gauss |
+| size | |
+| gravity | north, south, east, center, west, northeast, southeast, southwest, face |
+| crop | fill, fit, pad, scale, cut, face |
+| left | |
+| top | |
+| rotate | 90, 180, 270, 360 |
+| border | [top, right, bottom, left] |
+| backgroundColor | #hexColor, rgb() |
+| quality | |
+| upscale | |
 
-Modifiers usage demo <a href="https://imageserver.ack.ee/" target="_blank">here</a>.
+___
+
+
+### `upload(serverUrl, apiKey, imageId, file): Promise`
+
+```js
+import { upload } from 'resizin';
+
+upload(
+    'https://api.resizin.com',
+    config.RESIZIN_API_KEY,
+    'Walle on the road',
+    files[0]
+).then(() => {
+    ...
+});
+```
+
+To avoid repeating information that doesn't change acroos an app like `serverUrl` and `apiKey`, take a look at [`uploadFactory`](#upload-factory).
+
+    
+Examples from the wild:
+
+#### Upload in client (get file using jQuery)
+
+Assume you have a file input in your page
+
+```HTML
+<input type="file" id="fileinput" />
+```
+
+then
+
+```js
+import { upload } from 'resizin';
+
+$('#fileinput').live('change', function(){ 
+    var files = $('#fileinput').prop('files');
+    
+    upload(
+        'https://api.resizin.com',
+        config.RESIZIN_API_KEY,
+        'imageid', 
+        files[0]
+    ).then(() => {
+        ...      
+    });
+});
+```
+
+#### Upload in Node.js
+```js
+const resizin = require('resizin');
+const fs = require('fs');
+const config = require('../config');
+
+const file = fs.createReadStream(__dirname + '/myfile.png');
+var promise = resizin.upload(
+    'https://api.resizin.com',
+    config.RESIZIN_API_KEY,
+    'imageid', 
+    file
+);
+```
+
+### `uploadFactory(options: Options): function`
+
+```typescript
+interface Options {
+    serverUrl?: string;
+    apiKey: string;
+}
+```
+
+```js
+import { uploadFactory } from 'resizin';
+
+const upload = uploadFactory({
+    serverUrl: 'https://api.resizin.com', 
+    apiKey: config.RESIZIN_API_KEY,
+});
+
+upload("Walle on the road", files[0]);
+```
+
+You can omit `serverUrl` option when it's  `https://api.resizin.com` as it is a default value
+
+```js
+import { uploadFactory } from 'resizin';
+
+const upload = uploadFactory({ apiKey: config.RESIZIN_API_KEY });
+```
 
 ## License
 

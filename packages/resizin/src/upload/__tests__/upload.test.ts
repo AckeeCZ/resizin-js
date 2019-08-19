@@ -1,4 +1,4 @@
-import { uploadImage } from '../upload';
+import uploadImage from '../upload';
 import fetch from 'isomorphic-fetch';
 
 jest.mock('isomorphic-fetch');
@@ -41,7 +41,7 @@ describe('Upload image', () => {
         fetch.mockResolvedValue(responseObj);
 
         return uploadImage('resizin-url.com', 'asdf12ja55ls5djfl', '14', 'adsfjlsadjf').then(() => {
-            expect(fetch.mock.calls[0][0]).toEqual('resizin-url.com');
+            expect(fetch.mock.calls[0][0]).toEqual('resizin-url.com/api/v1/image/upload');
             expect(fetch.mock.calls[0][1]).toHaveProperty('headers.Authorization', 'Key asdf12ja55ls5djfl');
             expect(fetch.mock.calls[0][1].body).toBeInstanceOf(FormDataMock);
             expect(fetch.mock.calls[0][1].body.append).toHaveBeenCalledTimes(2);
