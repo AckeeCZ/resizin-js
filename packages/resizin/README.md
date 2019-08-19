@@ -13,11 +13,11 @@ Core package for uploading images and building url of images from [Resizin](http
 * [Installation](#installation)
 * [Quick start](#quick-start)
 * [API](#api)
-    * [`buildUrl(serverUrl, bucket, imageId, options)`](#build-url)
-    * [`buildUrlFactory(options)`](#clientfactory)
+    * [`buildUrl(serverUrl, bucket, imageId, options)`](#buildurlserverurl-bucket-imageid-options-options-string)
+    * [`buildUrlFactory(options)`](#buildurlfactoryoptions-clientoptions-function)
     * [Modifiers](#modifiers)
-    * [`upload(serverUrl, apiKey, imageId, file)`](#upload)
-    * [`uploadFactory(options)`](#upload-factory)
+    * [`upload(serverUrl, apiKey, imageId, file)`](#uploadserverurl-apikey-imageid-file-promise)
+    * [`uploadFactory(options)`](#uploadfactoryoptions-options-function)
 
 ## Installation
 
@@ -60,7 +60,7 @@ upload(client.upload("Walle on the road", files[0]);
 
 Return url of the image that is available at image server modified according to provided options.  
 
-To avoid repeating information that doesn't change across the app like `serverUrl` and `bucket`, take a look at [`buildUrlFactory`](#build-factory).
+To avoid repeating information that doesn't change across the app like `serverUrl` and `bucket`, take a look at [`buildUrlFactory`](#buildurlfactoryoptions-clientoptions-function).
 
 ```js
 import { buildUrl } from 'resizin';
@@ -94,7 +94,7 @@ interface ClientOptions {
 }
 ```
 
-Returns [`buildUrl`]() method with shortened interface `buildUrl(imageId: string, options: options)`
+Returns [`buildUrl`](#buildurlserverurl-bucket-imageid-options-options-string) method with shortened interface `buildUrl(imageId: string, options: options)`
 
 ```js
 import { buildUrlFactory } from 'resizin';
@@ -155,7 +155,7 @@ upload(
 });
 ```
 
-To avoid repeating information that doesn't change acroos an app like `serverUrl` and `apiKey`, take a look at [`uploadFactory`](#upload-factory).
+To avoid repeating information that doesn't change acroos an app like `serverUrl` and `apiKey`, take a look at [`uploadFactory`](#uploadfactoryoptions-options-function).
 
     
 Examples from the wild:
