@@ -1,8 +1,3 @@
-# Package is currently being revitalised
-
-![](http://static1.1.sqspcdn.com/static/f/207938/4844797/1258911333857/12345under.jpg)
-
-
 # resizin
 [![Bundlephobia](https://img.shields.io/bundlephobia/minzip/resizin.svg)](https://bundlephobia.com/result?p=resizin)
 
@@ -233,5 +228,3 @@ const upload = uploadFactory({ apiKey: config.RESIZIN_API_KEY });
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
-
-Jakub Baierl & Jiří Šmolík
