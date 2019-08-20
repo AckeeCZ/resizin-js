@@ -1,21 +1,24 @@
 {
   "name": "resizin-js",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "npm run build:sources && npm run build:types",
+    "build": "yarn build:sources && yarn build:types",
     "build:sources": "lerna exec -- babel src -d lib -x \".ts,.tsx\" --config-file=../../babel.config.js --ignore \"**/*.story.tsx,**/*.d.ts\" --ignore \"__tests__\"",
     "build:types": "lerna exec -- tsc -p ../../tsconfig.types.json --emitDeclarationOnly --outDir lib",
     "clean": "lerna exec -- rm -r lib",
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --use-workspaces",
     "lerna:publish": "lerna publish from-package --yes",
     "lerna:version": "lerna version $1",
-    "check": "npm run lint && npm run type-check",
+    "check": "yarn lint && yarn type-check",
     "lint": "tslint \"packages/*/src/**/*.{ts,tsx}\"",
     "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
-    "start": "onchange 'packages/*/src/**/*.{ts,tsx}' -- npm run build",
+    "type-check:watch": "yarn type-check -- --watch",
+    "start": "onchange 'packages/*/src/**/*.{ts,tsx}' -- yarn build",
     "test": "jest",
-    "test:coverage": "npm run test -- --collectCoverage",
+    "test:coverage": "yarn test -- --collectCoverage",
     "test:coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "test:watch": "jest --watch"
   },
