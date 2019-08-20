@@ -1,4 +1,4 @@
-import upload from '../upload';
+import upload from '.';
 import { DEFAULT_API_URL } from '../constants';
 
 interface ClientOptions {

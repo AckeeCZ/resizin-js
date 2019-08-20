@@ -1,5 +1,5 @@
 import upload from '../upload';
-import uploadFactory from '../factory';
+import uploadFactory from '../uploadFactory';
 import { DEFAULT_API_URL } from '../../constants';
 
 jest.mock('../upload');
