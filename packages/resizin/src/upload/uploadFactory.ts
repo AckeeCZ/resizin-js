@@ -7,10 +7,14 @@ interface ClientOptions {
     fileType?: FileType;
 }
 
-const uploadFactory = (options: ClientOptions = {} as ClientOptions) => (imageId: string, file: string) => {
+const uploadFactory = (options: ClientOptions = {} as ClientOptions) => (
+    imageId: string,
+    file: string,
+    mime: string,
+) => {
     const serverUrl = options.serverUrl || DEFAULT_API_URL;
 
-    return upload(serverUrl, options.apiKey, imageId, file, { fileType: options.fileType });
+    return upload(serverUrl, options.apiKey, imageId, file, { fileType: options.fileType, mime });
 };
 
 export default uploadFactory;

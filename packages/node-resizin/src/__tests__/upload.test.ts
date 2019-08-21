@@ -64,8 +64,7 @@ describe('Upload image', () => {
         });
     });
 
-    /** TODO - not implemented yet */
-    it.skip('use default mime type for image file type', () => {
+    it('use default mime type for image file type', () => {
         responseObj.status = 200;
         responseObj.json.mockResolvedValue({});
         fetchMock.mockResolvedValue(responseObj);
@@ -78,13 +77,13 @@ describe('Upload image', () => {
             },
         );
     });
-    /** TODO - not implemented yet */
-    it.skip('use default mime type for custom file type', () => {
+
+    it('use default mime type for custom file type', () => {
         responseObj.status = 200;
         responseObj.json.mockResolvedValue({});
         fetchMock.mockResolvedValue(responseObj);
 
-        return uploadImage({ apiKey: 'asdf12ja55ls5djfl', serverUrl: 'resizin-url.com' }, 'my-type')(
+        return uploadImage({ apiKey: 'asdf12ja55ls5djfl', serverUrl: 'resizin-url.com', fileType: 'my-type' })(
             '15',
             'bncvbcvb',
         ).then(() => {
@@ -93,8 +92,8 @@ describe('Upload image', () => {
             expect(formData.append.mock.calls[1][2]).toHaveProperty('contentType', 'application/octet-stream');
         });
     });
-    /** TODO - not implemented yet */
-    it.skip('use custom mime type', () => {
+
+    it('use custom mime type', () => {
         responseObj.status = 200;
         responseObj.json.mockResolvedValue({});
         fetchMock.mockResolvedValue(responseObj);

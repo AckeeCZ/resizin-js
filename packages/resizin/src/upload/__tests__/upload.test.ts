@@ -52,8 +52,7 @@ describe('Upload image', () => {
     });
 
     it('use image type when opts does not contain file type', () => {
-        const opts = {
-        };
+        const opts = {};
         responseObj.status = 200;
         responseObj.json.mockResolvedValue({});
         fetchMock.mockResolvedValue(responseObj);
@@ -71,11 +70,54 @@ describe('Upload image', () => {
         return uploadImage('resizin-url.com', 'asdf12ja55ls5djfl', '15', '465aas4ad').then(() => {
             expect(fetchMock.mock.calls[0][0]).toEqual('resizin-url.com/api/v1/image/upload');
             expect(fetchMock.mock.calls[0][1]).toHaveProperty('headers.Authorization', 'Key asdf12ja55ls5djfl');
-            expect(fetchMock.mock.calls[0][1].body).toBeInstanceOf(FormDataMock);
-            expect(fetchMock.mock.calls[0][1].body.append).toHaveBeenCalledTimes(2);
-            expect(fetchMock.mock.calls[0][1].body.append).toHaveBeenNthCalledWith(1, 'id', '15');
-            expect(fetchMock.mock.calls[0][1].body.append).toHaveBeenNthCalledWith(2, 'file', '465aas4ad');
+
+            const formData = fetchMock.mock.calls[0][1].body;
+            expect(formData).toBeInstanceOf(FormDataMock);
+            expect(formData.append).toHaveBeenCalledTimes(2);
+            expect(formData.append.mock.calls[0]).toEqual(['id', '15']);
+            expect(formData.append.mock.calls[1][0]).toEqual('file');
+            expect(formData.append.mock.calls[1][1]).toEqual('465aas4ad');
         });
+    });
+
+    it('use default mime type for image file type', () => {
+        responseObj.status = 200;
+        responseObj.json.mockResolvedValue({});
+        fetchMock.mockResolvedValue(responseObj);
+
+        return uploadImage('asdf12ja55ls5djfl', 'resizin-url.com', '16', 'puopuihoh').then(() => {
+            const formData = fetchMock.mock.calls[0][1].body;
+            expect(formData.append.mock.calls[1][1]).toEqual('puopuihoh');
+            expect(formData.append.mock.calls[1][2]).toHaveProperty('contentType', 'image/png');
+        });
+    });
+
+    it('use default mime type for custom file type', () => {
+        responseObj.status = 200;
+        responseObj.json.mockResolvedValue({});
+        fetchMock.mockResolvedValue(responseObj);
+
+        return uploadImage('asdf12ja55ls5djfl', 'resizin-url.com', '15', 'bncvbcvb', { fileType: 'my-type' }).then(
+            () => {
+                const formData = fetchMock.mock.calls[0][1].body;
+                expect(formData.append.mock.calls[1][1]).toEqual('bncvbcvb');
+                expect(formData.append.mock.calls[1][2]).toHaveProperty('contentType', 'application/octet-stream');
+            },
+        );
+    });
+
+    it('use custom mime type', () => {
+        responseObj.status = 200;
+        responseObj.json.mockResolvedValue({});
+        fetchMock.mockResolvedValue(responseObj);
+
+        return uploadImage('asdf12ja55ls5djfl', 'resizin-url.com', '15', 'asdasf89', { mime: 'image/jpeg' }).then(
+            () => {
+                const formData = fetchMock.mock.calls[0][1].body;
+                expect(formData.append.mock.calls[1][1]).toEqual('asdasf89');
+                expect(formData.append.mock.calls[1][2]).toHaveProperty('contentType', 'image/jpeg');
+            },
+        );
     });
 
     it('should reject if request for upload fail with status code higher than 400', () => {
