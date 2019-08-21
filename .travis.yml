@@ -1,22 +1,26 @@
 language: node_js
 node_js:
 - "10"
+cache:
+  yarn: true
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s
+  - export PATH="$HOME/.yarn/bin:$PATH"
 before_script:
-- npm run bootstrap
+- yarn bootstrap
 script:
-- npm run build
-- npm run check
-- npm run test
+- yarn build
+- yarn check
+- yarn test
 after_script:
-- npm run test:coverage
-- npm run test:coveralls
+- yarn test:coverage
+- yarn test:coveralls
 before_deploy:
 - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
 deploy:
   provider: script
-  script: "npm run lerna:publish"
+  script: "yarn lerna:publish"
   skip_cleanup: true
   on:
     node: "10"
     tags: true
-

@@ -48,31 +48,5 @@
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.2.2"
-  },
-  "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules",
-      "/lib"
-    ],
-    "setupFilesAfterEnv": [
-      "./configure-jest.js"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "globals": {
-      "ts-jest": {
-        "diagnostics": false
-      }
-    }
   }
 }
