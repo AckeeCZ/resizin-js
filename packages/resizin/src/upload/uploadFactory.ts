@@ -1,4 +1,4 @@
-import upload from '.';
+import upload from './upload';
 import { DEFAULT_API_URL } from '../constants';
 
 interface ClientOptions {
@@ -6,14 +6,10 @@ interface ClientOptions {
     apiKey: string;
 }
 
-const uploadFactory = (options: ClientOptions) => (imageId: string, file: string) => {
+const uploadFactory = (options: ClientOptions = {} as ClientOptions) => (imageId: string, file: string) => {
     const serverUrl = options.serverUrl || DEFAULT_API_URL;
 
-    if (!options.apiKey) {
-        throw new Error('You did not provide api key, which is required for image uploading');
-    }
-
-    upload(serverUrl, options.apiKey, imageId, file);
+    return upload(serverUrl, options.apiKey, imageId, file);
 };
 
 export default uploadFactory;
