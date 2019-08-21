@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-import NodeFormData from 'form-data';
 import Promise from 'promise-polyfill';
 
 const uploadImage = (serverUrl: string, apiKey: string, imageId: string, file: string) => {
@@ -24,13 +23,7 @@ const uploadImage = (serverUrl: string, apiKey: string, imageId: string, file: s
             },
         };
 
-        // TODO - polyfill FormData in node-resizing package
-        let formData;
-        if (typeof window === 'undefined') {
-            formData = new NodeFormData();
-        } else {
-            formData = new FormData();
-        }
+        const formData = new FormData();
 
         formData.append('id', imageId);
         formData.append('file', file);

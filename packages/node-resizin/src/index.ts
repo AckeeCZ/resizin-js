@@ -1,10 +1,11 @@
-/**
- * Created by dominik on 30/05/2017.
- */
+import { uploadFactory } from 'resizin';
+import FormData from 'form-data';
 
-const FormData = require('form-data');
-const fetch = require('isomorphic-fetch');
+(global as any).FormData = FormData;
 
+module.exports = uploadFactory;
+
+/*
 module.exports = (apiKey, base = 'https://api.resizin.com', type = 'image') => {
   const subPath = type === 'image' ? type : 'file';
   const defaultMime = type === 'image' ? 'image/png' : 'application/octet-stream';
@@ -50,3 +51,4 @@ module.exports = (apiKey, base = 'https://api.resizin.com', type = 'image') => {
     });
   };
 };
+*/
