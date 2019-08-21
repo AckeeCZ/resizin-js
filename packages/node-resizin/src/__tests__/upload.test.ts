@@ -20,11 +20,6 @@ describe('Upload image', () => {
         fetchMock.mockReset();
     });
 
-    // weird implementation, url is always defined
-    it.skip('should reject if url is not provided', () => {
-        return expect(uploadImage()).rejects.toThrow('Url is missing');
-    });
-
     it('should reject if api key is not provided', () => {
         return expect(uploadImage()('13')).rejects.toThrow('API KEY is missing');
     });
@@ -56,19 +51,19 @@ describe('Upload image', () => {
         );
     });
 
-    /** TODO - not implemented yet */
-    it.skip('use different url for custom file type', () => {
+    it('use different url for custom file type', () => {
         responseObj.status = 200;
         responseObj.json.mockResolvedValue({});
         fetchMock.mockResolvedValue(responseObj);
 
-        return uploadImage({ apiKey: 'asdf12ja55ls5djfl', serverUrl: 'resizin-url.com' }, 'my-type')(
+        return uploadImage({ apiKey: 'asdf12ja55ls5djfl', serverUrl: 'resizin-url.com', fileType: 'my-type' })(
             '14',
             'adsfjlsadjf',
         ).then(() => {
             expect(fetchMock.mock.calls[0][0]).toEqual('resizin-url.com/api/v1/file/upload');
         });
     });
+
     /** TODO - not implemented yet */
     it.skip('use default mime type for image file type', () => {
         responseObj.status = 200;

@@ -1,7 +1,26 @@
+import { defaults } from 'lodash';
 import fetch from 'isomorphic-fetch';
 import Promise from 'promise-polyfill';
 
-const uploadImage = (serverUrl: string, apiKey: string, imageId: string, file: string) => {
+export enum FileType {
+    IMAGE = 'image',
+    FILE = 'file',
+}
+
+interface UploadOptions {
+    fileType?: FileType;
+    mime?: string;
+}
+
+const defaultOptions = { fileType: FileType.IMAGE };
+
+const uploadImage = (
+    serverUrl: string,
+    apiKey: string,
+    imageId: string,
+    file: string,
+    uploadOptions: UploadOptions,
+) => {
     return Promise.resolve().then(() => {
         if (!serverUrl) {
             throw new Error('Url is missing!');
@@ -16,6 +35,9 @@ const uploadImage = (serverUrl: string, apiKey: string, imageId: string, file: s
             throw new Error('Body is missing!'); // TODO - change to "File is missing"
         }
 
+        const { fileType } = defaults(uploadOptions, defaultOptions);
+        const type = fileType === FileType.IMAGE ? fileType : FileType.FILE;
+
         const options: any = {
             method: 'POST',
             headers: {
@@ -29,10 +51,10 @@ const uploadImage = (serverUrl: string, apiKey: string, imageId: string, file: s
         formData.append('file', file);
         options.body = formData;
 
-        const url = `${serverUrl}/api/v1/image/upload`;
+        const url = `${serverUrl}/api/v1/${type}/upload`;
 
-        return fetch(url, options).then((response) => {
-            return response.json().then((res) => {
+        return fetch(url, options).then(response => {
+            return response.json().then(res => {
                 if (response.status >= 400) {
                     throw new Error(res.message || 'Bad response from server!');
                 }
