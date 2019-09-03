@@ -25,11 +25,11 @@ describe('Upload image', () => {
     });
 
     it('should reject if image id is not provided', () => {
-        return expect(uploadImage({ apiKey: 'asdf12ja55ls5djfl' })()).rejects.toThrow('Name is missing');
+        return expect(uploadImage({ apiKey: 'asdf12ja55ls5djfl' })()).rejects.toThrow('Image id is missing');
     });
 
     it('should reject if file is not provided', () => {
-        return expect(uploadImage({ apiKey: 'asdf12ja55ls5djfl' })('14')).rejects.toThrow('Body is missing');
+        return expect(uploadImage({ apiKey: 'asdf12ja55ls5djfl' })('14')).rejects.toThrow('File is missing');
     });
 
     it('pass url and options to fetch', () => {

@@ -34,10 +34,10 @@ const uploadImage = (
             throw new Error('API KEY is missing!');
         }
         if (!imageId) {
-            throw new Error('Name is missing!'); // TODO - change to "Id is missing"
+            throw new Error('Image id is missing!');
         }
         if (!file) {
-            throw new Error('Body is missing!'); // TODO - change to "File is missing"
+            throw new Error('File is missing!');
         }
 
         const options = defaults(uploadOptions, { fileType: type.IMAGE });
