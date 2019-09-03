@@ -10,7 +10,7 @@ before_script:
 - yarn bootstrap
 script:
 - yarn build
-- yarn check
+- yarn run check
 - yarn test
 after_script:
 - yarn test:coverage
