@@ -1,6 +1,7 @@
 import { defaults } from 'lodash';
 import fetch from 'isomorphic-fetch';
 import Promise from 'promise-polyfill';
+import getUniqueId from 'uuid/v1';
 
 const type = {
     IMAGE: 'image',
@@ -17,7 +18,10 @@ export type FileType = 'file' | 'image';
 interface UploadOptions {
     fileType?: FileType;
     mime?: string;
+    autoId?: boolean;
 }
+
+const defaultOptions = { fileType: type.IMAGE, autoId: false };
 
 const uploadImage = (
     serverUrl: string,
@@ -27,22 +31,22 @@ const uploadImage = (
     uploadOptions?: UploadOptions,
 ) => {
     return Promise.resolve().then(() => {
+        const options = defaults(uploadOptions, defaultOptions);
+
         if (!serverUrl) {
             throw new Error('Url is missing!');
         }
         if (!apiKey) {
             throw new Error('API KEY is missing!');
         }
-        if (!imageId) {
+        if (!imageId && !options.autoId) {
             throw new Error('Image id is missing!');
         }
         if (!file) {
             throw new Error('File is missing!');
         }
 
-        const options = defaults(uploadOptions, { fileType: type.IMAGE });
         const fileType = options.fileType === type.IMAGE ? options.fileType : type.FILE;
-
         const fetchOptions: any = {
             method: 'POST',
             headers: {
@@ -51,6 +55,7 @@ const uploadImage = (
         };
 
         const formData = new FormData();
+        const id = options.autoId && !imageId ? getUniqueId() : imageId;
 
         // TODO - how to deal with FormData having different interface in different environments.
         // At Browser app there is a native FormData which accepts only filename as a third parameter
@@ -60,7 +65,7 @@ const uploadImage = (
             contentType: options.mime || mimeByType[fileType],
         } as any;
 
-        formData.append('id', imageId);
+        formData.append('id', id);
         formData.append('file', file, fileMeta);
         fetchOptions.body = formData;
 

@@ -1,10 +1,13 @@
 import uploadImage from '../upload';
 import fetch from 'isomorphic-fetch';
+import uuid from 'uuid/v1';
 
 jest.mock('isomorphic-fetch');
 jest.mock('form-data');
+jest.mock('uuid/v1');
 
 const fetchMock = fetch as jest.Mock<fetch>;
+const getUniqueId = uuid as jest.Mock<uuid>;
 
 describe('Upload image', () => {
     class FormDataMock {
@@ -148,5 +151,44 @@ describe('Upload image', () => {
         return expect(uploadImage('img.resizin.com', 'asf4a6d', '16', 'ads4f6f46as')).resolves.toEqual({
             uploaded: true,
         });
+    });
+
+    it('should not reject if image id not provided but generating ids set to true', () => {
+        responseObj.status = 200;
+        responseObj.json.mockResolvedValue({ uploaded: true });
+        fetchMock.mockResolvedValue(responseObj);
+
+        return expect(
+            uploadImage('img.resizin.com', 'asdf12ja55ls5djfl', undefined, 'asdfjaldsfj', { autoId: true }),
+        ).resolves.toEqual({
+            uploaded: true,
+        });
+    });
+
+    it('should use auto generated id when it is allowed and id not provided', () => {
+        responseObj.status = 200;
+        responseObj.json.mockResolvedValue({});
+        fetchMock.mockResolvedValue(responseObj);
+        getUniqueId.mockReturnValue('131313');
+
+        return uploadImage('img.resizin.com', 'asdf12ja55ls5djfl', undefined, 'asdfjaldsfj', { autoId: true }).then(
+            () => {
+                const formData = fetchMock.mock.calls[0][1].body;
+                expect(formData.append.mock.calls[0]).toEqual(['id', '131313']);
+            },
+        );
+    });
+
+    it('should use provided id if provided even if generating ids allowed', () => {
+        responseObj.status = 200;
+        responseObj.json.mockResolvedValue({});
+        fetchMock.mockResolvedValue(responseObj);
+
+        return uploadImage('img.resizin.com', 'asdf12ja55ls5djfl', '29', 'asdfjaldsfj', { autoId: true }).then(
+            () => {
+                const formData = fetchMock.mock.calls[0][1].body;
+                expect(formData.append.mock.calls[0]).toEqual(['id', '29']);
+            },
+        );
     });
 });
