@@ -52,10 +52,16 @@ const uploadImage = (
 
         const formData = new FormData();
 
-        formData.append('id', imageId);
-        formData.append('file', file, {
+        // TODO - how to deal with FormData having different interface in different environments.
+        // At Browser app there is a native FormData which accepts only filename as a third parameter
+        // whereas at Node.js there is commnunity implementiion of the FormData and has more complex
+        // third parameter (including contentType).
+        const fileMeta = {
             contentType: options.mime || mimeByType[fileType],
-        } as any); // FIXME - how to deal with FormData having different interface
+        } as any;
+
+        formData.append('id', imageId);
+        formData.append('file', file, fileMeta);
         fetchOptions.body = formData;
 
         const url = `${serverUrl}/api/v1/${fileType}/upload`;
