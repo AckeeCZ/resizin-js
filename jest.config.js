@@ -3,6 +3,7 @@ const sharedSettings = {
         '^.+\\.tsx?$': 'ts-jest',
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+    coveragePathIgnorePatterns: ['/node_modules/', '/lib/'],
     globals: {
         'ts-jest': {
             diagnostics: false,
