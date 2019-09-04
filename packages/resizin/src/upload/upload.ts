@@ -27,7 +27,7 @@ const uploadImage = (
     serverUrl: string,
     apiKey: string,
     imageId: string|null,
-    file: string,
+    file: string|Blob,
     uploadOptions?: UploadOptions,
 ) => {
     return Promise.resolve().then(() => {
@@ -55,7 +55,7 @@ const uploadImage = (
         };
 
         const formData = new FormData();
-        const id = options.autoId && !imageId ? getUniqueId() : imageId;
+        const id = options.autoId && !imageId ? getUniqueId() : imageId as string;
 
         // TODO - how to deal with FormData having different interface in different environments.
         // At Browser app there is a native FormData which accepts only filename as a third parameter
