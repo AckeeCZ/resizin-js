@@ -9,13 +9,13 @@ interface ClientOptions {
 }
 
 const uploadFactory = (options: ClientOptions = { apiKey: '' }) => (
-    imageId: string,
-    file: string,
+    file: string|Blob,
+    imageId?: string,
     mime?: string,
 ) => {
     const serverUrl = options.serverUrl || DEFAULT_API_URL;
 
-    return upload(serverUrl, options.apiKey, imageId, file, {
+    return upload(serverUrl, options.apiKey, imageId || null, file, {
         fileType: options.fileType,
         mime,
         autoId: options.autoId,

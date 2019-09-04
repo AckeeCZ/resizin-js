@@ -26,7 +26,7 @@ const defaultOptions = { fileType: type.IMAGE, autoId: false };
 const uploadImage = (
     serverUrl: string,
     apiKey: string,
-    imageId: string,
+    imageId: string|null,
     file: string,
     uploadOptions?: UploadOptions,
 ) => {
