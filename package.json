@@ -7,7 +7,7 @@
   "scripts": {
     "build": "yarn build:sources && yarn build:types",
     "build:sources": "lerna exec -- babel src -d lib -x \".ts,.tsx\" --config-file=../../babel.config.js --ignore \"**/*.story.tsx,**/*.d.ts\" --ignore \"__tests__\"",
-    "build:types": "lerna exec -- tsc -p ../../tsconfig.types.json --emitDeclarationOnly --outDir lib",
+    "build:types": "lerna exec -- tsc -p ./tsconfig.types.json --emitDeclarationOnly",
     "clean": "lerna exec -- rm -r lib",
     "bootstrap": "lerna bootstrap --use-workspaces",
     "lerna:publish": "lerna publish from-package --yes",

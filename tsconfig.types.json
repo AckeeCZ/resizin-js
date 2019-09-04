@@ -13,8 +13,5 @@
         "esModuleInterop": true,
         "jsx": "react",
 	},
-	"include": [
-		"packages/*/src"
-    ],
     "exclude": ["node_modules", "build", "lib", "stories", "**/*.story.tsx", "**/*.d.ts", "**/*/__tests__"]
 }
