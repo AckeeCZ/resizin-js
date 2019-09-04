@@ -11,7 +11,7 @@ Core package for uploading images and building url of images from [Resizin](http
     * [`buildUrl(serverUrl, bucket, imageId, options)`](#buildurlserverurl-bucket-imageid-options-options-string)
     * [`buildUrlFactory(options)`](#buildurlfactoryoptions-clientoptions-function)
     * [Modifiers](#modifiers)
-    * [`upload(serverUrl, apiKey, imageId, file, options)`](#uploadserverurl-apikey-imageid-null-file-uploadoptions-options-promise)
+    * [`upload(serverUrl, apiKey, imageId, file, options)`](#uploadserverurl-apikey-imageid--null-file-uploadoptions-options-promise)
     * [`uploadFactory(options)`](#uploadfactoryoptions-options-function)
 
 ## Installation
@@ -90,7 +90,7 @@ interface ClientOptions {
 }
 ```
 
-Returns [`buildUrl`](#buildurlserverurl-bucket-imageid-options-options-string) method with shortened interface `buildUrl(imageId: string, options: options)`
+Returns [`buildUrl`](#buildurlserverurl-bucket-imageid-options-options-string) method with shortened interface **`buildUrl(imageId: string, options: options)`**
 
 ```js
 import { buildUrlFactory } from 'resizin';
