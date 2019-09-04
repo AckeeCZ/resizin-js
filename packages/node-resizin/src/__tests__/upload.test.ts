@@ -25,11 +25,13 @@ describe('Upload image', () => {
     });
 
     it('should reject if image id is not provided', () => {
-        return expect(uploadImage({ apiKey: 'asdf12ja55ls5djfl' })()).rejects.toThrow('Image id is missing');
+        return expect(uploadImage({ apiKey: 'asdf12ja55ls5djfl' })('asd3f4as5lf')).rejects.toThrow(
+            'Image id is missing',
+        );
     });
 
     it('should reject if file is not provided', () => {
-        return expect(uploadImage({ apiKey: 'asdf12ja55ls5djfl' })('14')).rejects.toThrow('File is missing');
+        return expect(uploadImage({ apiKey: 'asdf12ja55ls5djfl' })(null, 'asd45adsf4')).rejects.toThrow('File is missing');
     });
 
     it('pass url and options to fetch', () => {
@@ -37,7 +39,7 @@ describe('Upload image', () => {
         responseObj.json.mockResolvedValue({});
         fetchMock.mockResolvedValue(responseObj);
 
-        return uploadImage({ apiKey: 'asdf12ja55ls5djfl', serverUrl: 'resizin-url.com' })('14', 'adsfjlsadjf').then(
+        return uploadImage({ apiKey: 'asdf12ja55ls5djfl', serverUrl: 'resizin-url.com' })('adsfjlsadjf', '14').then(
             () => {
                 expect(fetchMock.mock.calls[0][0]).toEqual('resizin-url.com/api/v1/image/upload');
                 expect(fetchMock.mock.calls[0][1]).toHaveProperty('headers.Authorization', 'Key asdf12ja55ls5djfl');
@@ -57,8 +59,8 @@ describe('Upload image', () => {
         fetchMock.mockResolvedValue(responseObj);
 
         return uploadImage({ apiKey: 'asdf12ja55ls5djfl', serverUrl: 'resizin-url.com', fileType: 'my-type' })(
-            '14',
             'adsfjlsadjf',
+            '14',
         ).then(() => {
             expect(fetchMock.mock.calls[0][0]).toEqual('resizin-url.com/api/v1/file/upload');
         });
@@ -69,7 +71,7 @@ describe('Upload image', () => {
         responseObj.json.mockResolvedValue({});
         fetchMock.mockResolvedValue(responseObj);
 
-        return uploadImage({ apiKey: 'asdf12ja55ls5djfl', serverUrl: 'resizin-url.com' })('16', 'puopuihoh').then(
+        return uploadImage({ apiKey: 'asdf12ja55ls5djfl', serverUrl: 'resizin-url.com' })('puopuihoh', '16').then(
             () => {
                 const formData = fetchMock.mock.calls[0][1].body;
                 expect(formData.append.mock.calls[1][1]).toEqual('puopuihoh');
@@ -84,8 +86,8 @@ describe('Upload image', () => {
         fetchMock.mockResolvedValue(responseObj);
 
         return uploadImage({ apiKey: 'asdf12ja55ls5djfl', serverUrl: 'resizin-url.com', fileType: 'my-type' })(
-            '15',
             'bncvbcvb',
+            '15',
         ).then(() => {
             const formData = fetchMock.mock.calls[0][1].body;
             expect(formData.append.mock.calls[1][1]).toEqual('bncvbcvb');
@@ -99,8 +101,8 @@ describe('Upload image', () => {
         fetchMock.mockResolvedValue(responseObj);
 
         return uploadImage({ apiKey: 'asdf12ja55ls5djfl', serverUrl: 'resizin-url.com' })(
-            '15',
             'asdasf89',
+            '15',
             'image/jpeg',
         ).then(() => {
             const formData = fetchMock.mock.calls[0][1].body;
