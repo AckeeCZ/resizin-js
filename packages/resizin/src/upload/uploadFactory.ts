@@ -5,16 +5,21 @@ interface ClientOptions {
     serverUrl?: string;
     apiKey: string;
     fileType?: FileType;
+    autoId?: boolean;
 }
 
 const uploadFactory = (options: ClientOptions = { apiKey: '' }) => (
     imageId: string,
     file: string,
-    mime: string,
+    mime?: string,
 ) => {
     const serverUrl = options.serverUrl || DEFAULT_API_URL;
 
-    return upload(serverUrl, options.apiKey, imageId, file, { fileType: options.fileType, mime });
+    return upload(serverUrl, options.apiKey, imageId, file, {
+        fileType: options.fileType,
+        mime,
+        autoId: options.autoId,
+    });
 };
 
 export default uploadFactory;
