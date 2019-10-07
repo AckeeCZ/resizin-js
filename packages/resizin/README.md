@@ -44,7 +44,6 @@ const imageUrl = buildUrl('walle',  { width: 250 });
 // Uploading image
 const upload = uploadFactory({
     apiKey: config.RESIZIN_API_KEY,
-    autoId: true,
 })
 
 upload(files[0]);
@@ -141,7 +140,7 @@ ___
 ```typescript
 interface Options {
     fileType?: 'image'|'file'; // default is 'image'
-    autoId?: boolean;
+    autoId?: boolean;          // default is true 
 }
 ```
 
@@ -153,7 +152,7 @@ import { upload } from 'resizin';
 upload(
     'https://api.resizin.com',
     config.RESIZIN_API_KEY,
-    'Walle on the road',
+    null,
     files[0],
 ).then(() => {
     ...
@@ -176,7 +175,7 @@ const uploadFile = file =>
     upload(
         'https://api.resizin.com',
         config.RESIZIN_API_KEY,
-        'imageid', 
+        null,
         files[0]
     ).then(() => {
         ...      
@@ -207,7 +206,7 @@ $('#fileinput').live('change', function(){
     upload(
         'https://api.resizin.com',
         config.RESIZIN_API_KEY,
-        'imageid', 
+        null,
         files[0]
     ).then(() => {
         ...      
@@ -225,7 +224,7 @@ const file = fs.createReadStream(__dirname + '/myfile.png');
 var promise = resizin.upload(
     'https://api.resizin.com',
     config.RESIZIN_API_KEY,
-    'imageid', 
+    null, 
     file
 );
 ```
@@ -263,15 +262,15 @@ upload("Walle on the road", files[0]);
     const upload = uploadFactory({ apiKey: config.RESIZIN_API_KEY });
     ```
 
-* If you set `autoId` option to `true`, you don't have to provide an image id and make an upload call more simple
+* If you set `autoId` option to `false`, you prevent auto generating image id, **but you must to provide it by yourself!**
 
     ```js
     import { uploadFactory } from 'resizin';
 
-    const upload = uploadFactory({ apiKey: config.RESIZIN_API_KEY, autoId: true });
+    const upload = uploadFactory({ apiKey: config.RESIZIN_API_KEY, autoId: false });
 
-    upload(files[0]);
-    upload(files[1]);
+    upload(files[0], 'id-image-1');
+    upload(files[1], 'id-image-2');
     ```
 
 ## License
