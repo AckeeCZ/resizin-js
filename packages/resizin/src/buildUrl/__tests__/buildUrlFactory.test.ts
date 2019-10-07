@@ -1,5 +1,5 @@
 import buildUrl from '../buildUrl';
-import buildUrlFactory from '../factory';
+import buildUrlFactory from '../buildUrlFactory';
 import { DEFAULT_SERVER_URL } from '../../constants';
 
 jest.mock('../buildUrl');

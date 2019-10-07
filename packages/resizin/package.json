@@ -27,7 +27,6 @@
   "readme": "README.md",
   "repository": "https://github.com/AckeeCZ/resizin-js/",
   "dependencies": {
-    "@types/form-data": "^2.5.0",
     "@types/isomorphic-fetch": "^0.0.35",
     "@types/lodash": "^4.14.136",
     "@types/promise-polyfill": "^6.0.3",

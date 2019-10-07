@@ -135,7 +135,15 @@ You can try all modifiers at <a href="https://resizin.com/" target="_blank">Inte
 ___
 
 
-### `upload(serverUrl, apiKey, imageId, file): Promise`
+### `upload(serverUrl, apiKey, imageId, file, uploadOptions: Options): Promise`
+
+```typescript
+interface Options {
+    fileType?: 'image'|'file'; // default is 'image'
+}
+```
+
+Usage
 
 ```js
 import { upload } from 'resizin';
@@ -144,13 +152,13 @@ upload(
     'https://api.resizin.com',
     config.RESIZIN_API_KEY,
     'Walle on the road',
-    files[0]
+    files[0],
 ).then(() => {
     ...
 });
 ```
 
-To avoid repeating information that doesn't change acroos an app like `serverUrl` and `apiKey`, take a look at [`uploadFactory`](#uploadfactoryoptions-options-function).
+To avoid repeating information that doesn't change across an app like `serverUrl` and `apiKey`, take a look at [`uploadFactory`](#uploadfactoryoptions-options-function).
 
     
 Examples from the wild:

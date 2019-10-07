@@ -1,8 +1,31 @@
+import { defaults } from 'lodash';
 import fetch from 'isomorphic-fetch';
-import NodeFormData from 'form-data';
 import Promise from 'promise-polyfill';
 
-const uploadImage = (serverUrl: string, apiKey: string, imageId: string, file: string) => {
+const type = {
+    IMAGE: 'image',
+    FILE: 'file',
+};
+
+const mimeByType = {
+    [type.IMAGE]: 'image/png',
+    [type.FILE]: 'application/octet-stream',
+};
+
+export type FileType = 'file' | 'image';
+
+interface UploadOptions {
+    fileType?: FileType;
+    mime?: string;
+}
+
+const uploadImage = (
+    serverUrl: string,
+    apiKey: string,
+    imageId: string,
+    file: string,
+    uploadOptions?: UploadOptions,
+) => {
     return Promise.resolve().then(() => {
         if (!serverUrl) {
             throw new Error('Url is missing!');
@@ -11,35 +34,40 @@ const uploadImage = (serverUrl: string, apiKey: string, imageId: string, file: s
             throw new Error('API KEY is missing!');
         }
         if (!imageId) {
-            throw new Error('Name is missing!'); // TODO - change to "Id is missing"
+            throw new Error('Image id is missing!');
         }
         if (!file) {
-            throw new Error('Body is missing!'); // TODO - change to "File is missing"
+            throw new Error('File is missing!');
         }
 
-        const options: any = {
+        const options = defaults(uploadOptions, { fileType: type.IMAGE });
+        const fileType = options.fileType === type.IMAGE ? options.fileType : type.FILE;
+
+        const fetchOptions: any = {
             method: 'POST',
             headers: {
                 Authorization: 'Key ' + apiKey,
             },
         };
 
-        // TODO - polyfill FormData in node-resizing package
-        let formData;
-        if (typeof window === 'undefined') {
-            formData = new NodeFormData();
-        } else {
-            formData = new FormData();
-        }
+        const formData = new FormData();
+
+        // TODO - how to deal with FormData having different interface in different environments.
+        // At Browser app there is a native FormData which accepts only filename as a third parameter
+        // whereas at Node.js there is commnunity implementiion of the FormData and has more complex
+        // third parameter (including contentType).
+        const fileMeta = {
+            contentType: options.mime || mimeByType[fileType],
+        } as any;
 
         formData.append('id', imageId);
-        formData.append('file', file);
-        options.body = formData;
+        formData.append('file', file, fileMeta);
+        fetchOptions.body = formData;
 
-        const url = `${serverUrl}/api/v1/image/upload`;
+        const url = `${serverUrl}/api/v1/${fileType}/upload`;
 
-        return fetch(url, options).then((response) => {
-            return response.json().then((res) => {
+        return fetch(url, fetchOptions).then(response => {
+            return response.json().then(res => {
                 if (response.status >= 400) {
                     throw new Error(res.message || 'Bad response from server!');
                 }
