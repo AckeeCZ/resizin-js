@@ -11,7 +11,7 @@ Core package for uploading images and building url of images from [Resizin](http
     * [`buildUrl(serverUrl, bucket, imageId, options)`](#buildurlserverurl-bucket-imageid-options-options-string)
     * [`buildUrlFactory(options)`](#buildurlfactoryoptions-clientoptions-function)
     * [Modifiers](#modifiers)
-    * [`upload(serverUrl, apiKey, imageId, file)`](#uploadserverurl-apikey-imageid-file-promise)
+    * [`upload(serverUrl, apiKey, imageId, file, options)`](#uploadserverurl-apikey-imageid--null-file-uploadoptions-options-promise)
     * [`uploadFactory(options)`](#uploadfactoryoptions-options-function)
 
 ## Installation
@@ -43,10 +43,10 @@ const imageUrl = buildUrl('walle',  { width: 250 });
 
 // Uploading image
 const upload = uploadFactory({
-    apiKey: config.RESIZIN_API_KEY
+    apiKey: config.RESIZIN_API_KEY,
 })
 
-upload(client.upload("Walle on the road", files[0]);
+upload(files[0]);
 ```
 
 ## API
@@ -89,7 +89,7 @@ interface ClientOptions {
 }
 ```
 
-Returns [`buildUrl`](#buildurlserverurl-bucket-imageid-options-options-string) method with shortened interface `buildUrl(imageId: string, options: options)`
+Returns [`buildUrl`](#buildurlserverurl-bucket-imageid-options-options-string) method with shortened interface **`buildUrl(imageId: string, options: options)`**
 
 ```js
 import { buildUrlFactory } from 'resizin';
@@ -135,11 +135,12 @@ You can try all modifiers at <a href="https://resizin.com/" target="_blank">Inte
 ___
 
 
-### `upload(serverUrl, apiKey, imageId, file, uploadOptions: Options): Promise`
+### `upload(serverUrl, apiKey, imageId = null, file, uploadOptions: Options): Promise`
 
 ```typescript
 interface Options {
     fileType?: 'image'|'file'; // default is 'image'
+    autoId?: boolean;          // default is true 
 }
 ```
 
@@ -151,19 +152,42 @@ import { upload } from 'resizin';
 upload(
     'https://api.resizin.com',
     config.RESIZIN_API_KEY,
-    'Walle on the road',
+    null,
     files[0],
 ).then(() => {
     ...
 });
 ```
 
-To avoid repeating information that doesn't change across an app like `serverUrl` and `apiKey`, take a look at [`uploadFactory`](#uploadfactoryoptions-options-function).
+To avoid repeating information that doesn't change across an app like `serverUrl` and `apiKey`, **take a look at [`uploadFactory`](#uploadfactoryoptions-options-function)**.
 
     
 Examples from the wild:
 
-#### Upload in client (get file using jQuery)
+#### Upload in client (React example)
+
+
+```js
+import React from 'react';
+import { upload } from 'resizin';
+
+const uploadFile = file =>
+    upload(
+        'https://api.resizin.com',
+        config.RESIZIN_API_KEY,
+        null,
+        files[0]
+    ).then(() => {
+        ...      
+    });
+
+
+const UploadImageInput = () => (
+    <input type="file" id="fileinput" onChange={e => uploadFile(e.target.files[0])} />
+);
+```
+
+#### Upload in client (jQuery example)
 
 Assume you have a file input in your page
 
@@ -182,7 +206,7 @@ $('#fileinput').live('change', function(){
     upload(
         'https://api.resizin.com',
         config.RESIZIN_API_KEY,
-        'imageid', 
+        null,
         files[0]
     ).then(() => {
         ...      
@@ -200,7 +224,7 @@ const file = fs.createReadStream(__dirname + '/myfile.png');
 var promise = resizin.upload(
     'https://api.resizin.com',
     config.RESIZIN_API_KEY,
-    'imageid', 
+    null, 
     file
 );
 ```
@@ -211,8 +235,11 @@ var promise = resizin.upload(
 interface Options {
     serverUrl?: string;
     apiKey: string;
+    autoId?: boolean;
 }
 ```
+
+the factory returns function **`upload(file, imageId?)`**
 
 ```js
 import { uploadFactory } from 'resizin';
@@ -225,13 +252,26 @@ const upload = uploadFactory({
 upload("Walle on the road", files[0]);
 ```
 
-You can omit `serverUrl` option when it's  `https://api.resizin.com` as it is a default value
+#### Usage tips
 
-```js
-import { uploadFactory } from 'resizin';
+* You can omit `serverUrl` option when it's  `https://api.resizin.com` as it is a default value
 
-const upload = uploadFactory({ apiKey: config.RESIZIN_API_KEY });
-```
+    ```js
+    import { uploadFactory } from 'resizin';
+
+    const upload = uploadFactory({ apiKey: config.RESIZIN_API_KEY });
+    ```
+
+* If you set `autoId` option to `false`, you prevent auto generating image id, **but you must to provide it by yourself!**
+
+    ```js
+    import { uploadFactory } from 'resizin';
+
+    const upload = uploadFactory({ apiKey: config.RESIZIN_API_KEY, autoId: false });
+
+    upload(files[0], 'id-image-1');
+    upload(files[1], 'id-image-2');
+    ```
 
 ## License
 
