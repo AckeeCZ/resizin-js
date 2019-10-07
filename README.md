@@ -13,3 +13,4 @@ Packages for easy use of Ackee image server [Resizin](https://www.resizin.com) f
 Consists of
 
 * [resizin](packages/resizin/README.md) - core package containing base functions for communicating with image server
+* [node-resizin](packages/node-resizin/README.md) - wrapper around `resizin` package for using it in node.js environment
