@@ -21,7 +21,7 @@ interface UploadOptions {
     autoId?: boolean;
 }
 
-const defaultOptions = { fileType: type.IMAGE, autoId: false };
+const defaultOptions = { fileType: type.IMAGE, autoId: true };
 
 const uploadImage = (
     serverUrl: string,

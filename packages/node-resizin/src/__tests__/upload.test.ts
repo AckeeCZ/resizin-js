@@ -25,7 +25,7 @@ describe('Upload image', () => {
     });
 
     it('should reject if image id is not provided', () => {
-        return expect(uploadImage({ apiKey: 'asdf12ja55ls5djfl' })('asd3f4as5lf')).rejects.toThrow(
+        return expect(uploadImage({ apiKey: 'asdf12ja55ls5djfl', autoId: false })('asd3f4as5lf')).rejects.toThrow(
             'Image id is missing',
         );
     });
