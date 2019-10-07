@@ -7,7 +7,7 @@ interface ClientOptions {
     fileType?: FileType;
 }
 
-const uploadFactory = (options: ClientOptions = {} as ClientOptions) => (
+const uploadFactory = (options: ClientOptions = { apiKey: '' }) => (
     imageId: string,
     file: string,
     mime: string,
