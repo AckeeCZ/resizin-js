@@ -8,7 +8,6 @@ Core package for uploading images and building url of images from [Resizin](http
 * [Installation](#installation)
 * [Quick start](#quick-start)
 * [API](#api)
-    * [`buildUrl(serverUrl, bucket, imageId, options)`](#buildurlserverurl-bucket-imageid-options-options-string)
     * [`buildUrlFactory(options)`](#buildurlfactoryoptions-clientoptions-function)
     * [Modifiers](#modifiers)
     * [`upload(serverUrl, apiKey, imageId, file, options)`](#uploadserverurl-apikey-imageid--null-file-uploadoptions-options-promise)
@@ -34,51 +33,24 @@ yarn add @ackee/resizin
 import { buildUrlFactory, uploadFactory } from 'resizin';
 import config from '../config';
 
-// Building image url
-const buildUrl = buildUrlFactory({
-    bucket: 'ackee',
-});
- 
-const imageUrl = buildUrl('walle',  { width: 250 });
-
 // Uploading image
 const upload = uploadFactory({
     apiKey: config.RESIZIN_API_KEY,
 })
 
 upload(files[0]);
+
+// Building image url
+const buildUrl = buildUrlFactory({
+    bucket: 'ackee',
+});
+ 
+const imageUrl = buildUrl('walle',  {
+    width: 250,
+});
 ```
 
 ## API
-
-### `buildUrl(serverUrl, bucket, imageId, options?: Options): string`
-
-Return url of the image that is available at image server modified according to provided options.  
-
-To avoid repeating information that doesn't change across the app like `serverUrl` and `bucket`, take a look at [`buildUrlFactory`](#buildurlfactoryoptions-clientoptions-function).
-
-```js
-import { buildUrl } from 'resizin';
-
-const image = buildUrl(
-    'https://img.resizin.com',
-    'ackee',
-    'walle', 
-    {
-        width: 250, 
-        filter: 'sharpen', 
-        backgroundColor: '00bcd4',
-        border: [10, 60, 10, 10]
-    }
-)
-```
-
-And result image is  
-![Example image 1](https://img.resizin.com/ackee/image/w_250-f_sharpen-b_10_10_10_60-bg_00bcd4/walle)
-
-For a complete list of modifiers look at the standalone [modifiers](#modifiers) section.
-
-___
 
 ### `buildUrlFactory(options: ClientOptions): function`
 
@@ -89,27 +61,63 @@ interface ClientOptions {
 }
 ```
 
-Returns [`buildUrl`](#buildurlserverurl-bucket-imageid-options-options-string) method with shortened interface **`buildUrl(imageId: string, options: options)`**
+Result of factory is **`buildUrl`** function with interface **`buildUrl(imageId: string, modifiers: object)`**. The function returns url of the image that is available at image server adjust according to provided modifiers.  
 
 ```js
-import { buildUrlFactory } from 'resizin';
+import { buildUrl } from 'resizin';
 
 const buildUrl = buildUrlFactory({
     serverUrl: 'https://img.resizin.com',
     bucket: 'ackee',
 });
- 
-const imageUrl = buildUrl('walle',  { width: 250, top: 20, left: 50 });
+
+const imageUrl = buildUrl(
+    'walle', 
+    {
+        width: 250, 
+        filter: 'sharpen', 
+        backgroundColor: '00bcd4',
+        border: [10, 60, 10, 10]
+    }
+);
+
 const secondImageUrl = buildUrl('walle',  { filter: 'negative', rotate: 180 });
 ```
 
-You can omit `serverUrl` option when it's  `https://img.resizin.com` as it is a default value
+Here's how result images look like
+<figure style="width: 250px; display: inline-block">
+  <img src="https://img.resizin.com/ackee/image/w_250-f_sharpen-b_10_10_10_60-bg_00bcd4/walle" alt="Example image 1">
+  <figcaption style="text-align:center"><code>imageUrl</code></figcaption>
+</figure>
 
-```js
-import { buildUrlFactory } from 'resizin';
+<figure style="width: 250px; display: inline-block">
+  <img src="https://img.resizin.com/ackee/image/f_negative-r_180/walle" alt="Example image 2">
+  <figcaption style="text-align:center"><code>secondImageUrl</code></figcaption>
+</figure>
 
-const buildUrl = buildUrlFactory({ bucket: 'ackee' });
-```
+For a complete list of usable modifiers look at the standalone [modifiers](#modifiers) section.
+
+#### Usage tips 
+
+* You can omit `serverUrl` option when it's  `https://img.resizin.com` as it is a default value
+
+    ```js
+    import { buildUrlFactory } from 'resizin';
+
+    const buildUrl = buildUrlFactory({ bucket: 'ackee' });
+    ```
+
+* `buildUrlFactory` is also default export from the package sou you can choose from two ways of importing it
+
+    ```js
+    import { buildUrlFactory } from 'resizin';
+    
+    // is the same as a
+    
+    import buildUrlFactory from 'resizin';
+    ```
+
+    That gives you an ability to name the factory whatever you like at the phase of importing it.
 
 ___
 
