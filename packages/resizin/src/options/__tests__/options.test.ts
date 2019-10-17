@@ -47,7 +47,7 @@ describe('Options serialization', () => {
 
         it('should use filter value if it is one of allowed', () => {
             expect(serializeOptions({ filter: 'sepia' })).toEqual('f_sepia');
-            expect(serializeOptions({ filter: 'grayscale' })).toEqual('f_grayscale');
+            expect(serializeOptions({ filter: 'greyscale' })).toEqual('f_greyscale');
             expect(serializeOptions({ filter: 'sharpen' })).toEqual('f_sharpen');
             expect(serializeOptions({ filter: 'blur' })).toEqual('f_blur');
             expect(serializeOptions({ filter: 'negative' })).toEqual('f_negative');

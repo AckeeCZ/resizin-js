@@ -163,7 +163,7 @@ If width not set, it's counted according to the height value preserving aspect r
 
 #### `filter`
 Determines if any adjusting filter should be applied to an image.  
-Value is one of **`sepia`**, **`grayscale`**, **`sharpen`**, **`blur`**, **`negative`**, **`edge`**, **`gauss`**.
+Value is one of **`sepia`**, **`greyscale`**, **`sharpen`**, **`blur`**, **`negative`**, **`edge`**, **`gauss`**.
 
 ```js
 {
@@ -183,8 +183,8 @@ Value is one of **`sepia`**, **`grayscale`**, **`sharpen`**, **`blur`**, **`nega
 </figure>
 
 <figure style="margin: 5px; display: inline-block">
-  <img src="https://img.resizin.com/ackee/image/w_250-f_grayscale/walle" alt="Filter Example grayscale">
-  <figcaption style="text-align:center"><code>Grayscale</code></figcaption>
+  <img src="https://img.resizin.com/ackee/image/w_250-f_greyscale/walle" alt="Filter Example greyscale">
+  <figcaption style="text-align:center"><code>Greyscale</code></figcaption>
 </figure>
 
 <figure style="margin: 5px; display: inline-block">
