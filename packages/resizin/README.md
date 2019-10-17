@@ -124,24 +124,23 @@ ___
 ### Modifiers
 You can try all modifiers at <a href="https://resizin.com/" target="_blank">Interactive documentation</a>.
 
-| Modifier   |       Available options |
-|----------|:-------------:|------:|
-| width | |
-| height | |
-| filter | sepia, grayscale, sharpen, blur, negative, edge, gauss |
-| size | |
-| gravity | north, south, east, center, west, northeast, southeast, southwest, face |
-| crop | fill, fit, pad, scale, cut, face |
-| left | |
-| top | |
-| rotate | 90, 180, 270, 360 |
-| border | [top, right, bottom, left] |
-| backgroundColor | #hexColor, rgb() |
-| quality | |
-| upscale | |
+| name | value |  example | notes |
+|----------|:------:|:------:|:--------------|
+| `width` | integer  | `width: 160` |
+| `height` | integer | `height: 80` | 
+| `filter` | one of `sepia`, `grayscale`, `sharpen`, `blur`, `negative`, `edge`, `gauss`| `filter: 'blur'` |
+| `square` | integer| `square: 40` | Sets equal value of image width and height at once.
+| `gravity` | one of `north`, `south`, `east`, `center`, `west`, `northeast`, `southeast`, `southwest`, `face` | `gravity: 'center'` |
+| `crop` | one of `fill`, `fit`, `pad`, `scale`, `cut`, `face`| `crop: pad` |
+| `left` | integer| `left: 25`  |
+| `top` | integer| `top: 30`  |
+| `rotate` | one of `90`, `180`, `270`, `360` | `rotate: 270` |
+| `border` | array [top, right, bottom, left]| `border: [20, 30, 20, 20]`  |
+| `backgroundColor` | #hexColor or rgb() | `backgroundColor:'#00ff00'` `backgroundColor:'rgb(0,255,0)'` | Determines border color
+| `quality` | integer | `quality: 6`  | Image quality
+| `upscale` | boolean | `upscale: true`  |
 
 ___
-
 
 ### `upload(serverUrl, apiKey, imageId = null, file, uploadOptions: Options): Promise`
 
