@@ -499,7 +499,7 @@ const upload = uploadFactory({
     apiKey: config.RESIZIN_API_KEY,
 });
 
-upload("Walle on the road", files[0]);
+upload(files[0], "Walle on the road");
 ```
 
 Examples from the wild:
@@ -517,10 +517,7 @@ const upload = uploadFactory({
 });
 
 const uploadFile = file =>
-    upload(
-        null,
-        files[0]
-    ).then(() => {
+    upload(files[0]).then(() => {
         ...      
     });
 
@@ -551,10 +548,7 @@ const upload = uploadFactory({
 $('#fileinput').live('change', function(){ 
     var files = $('#fileinput').prop('files');
     
-    upload(
-        null,
-        files[0]
-    ).then(() => {
+    upload(files[0]).then(() => {
         ...      
     });
 });
@@ -572,10 +566,10 @@ const upload = uploadFactory({
 });
 
 const file = fs.createReadStream(__dirname + '/myfile.png');
-var promise = resizin.upload(
-    null, 
-    file
-);
+
+resizin.upload(file).then(() => {
+    ...      
+});
 ```
 
 #### Usage tips
