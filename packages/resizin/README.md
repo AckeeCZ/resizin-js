@@ -8,9 +8,9 @@ Core package for uploading images and building url of images from [Resizin](http
 * [Installation](#installation)
 * [Quick start](#quick-start)
 * [API](#api)
-    * [`buildUrlFactory(options)`](#buildurlfactoryoptions-clientoptions-function)
+    * [`buildUrlFactory(options)`](#buildurlfactoryoptions-clientoptions-functionimageid-modifiers)
     * [Modifiers](#modifiers)
-    * [`uploadFactory(options)`](#uploadfactoryoptions-options-function)
+    * [`uploadFactory(options)`](#uploadfactoryoptions-options-functionfile-imageid)
 
 ## Installation
 
