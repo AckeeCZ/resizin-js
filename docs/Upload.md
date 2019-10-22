@@ -48,3 +48,4 @@ upload(files[0], "Walle on the road");
 
     upload(files[0], 'id-image-1');
     upload(files[1], 'id-image-2');
+    ```

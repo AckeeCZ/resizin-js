@@ -124,11 +124,11 @@ For a complete list of usable modifiers look at the standalone [modifiers](#modi
 
 ___
 
-[Modifiers](../../docs/Modifiers.md)
+[**Modifiers documentation**](../../docs/Modifiers.md)
 
 ___
 
-[Upload](../../docs/Upload.md)
+[**Upload factory documentation**](../../docs/Upload.md)
 
 
 ## License

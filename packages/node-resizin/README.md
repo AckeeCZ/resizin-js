@@ -45,25 +45,25 @@ resizin.upload(file).then(() => {
 
 ---
 
-[Upload](../../docs/Upload.md)
+[**Upload factory documentation**](../../docs/Upload.md)
 *  There is also third parametr, available only for Node.js, that determines file mime type. The mime type is optional and defaults to `application/octet-stream`.
 
-```js
-const { uploadFactory } = require('node-resizin');
+    ```js
+    const { uploadFactory } = require('node-resizin');
 
-const fs = require('fs');
-const config = require('../config');
+    const fs = require('fs');
+    const config = require('../config');
 
-const upload = uploadFactory({
-    apiKey: config.RESIZIN_API_KEY,
-});
+    const upload = uploadFactory({
+        apiKey: config.RESIZIN_API_KEY,
+    });
 
-const file = fs.createReadStream('/tmp/feedback.pdf');
+    const file = fs.createReadStream('/tmp/feedback.pdf');
 
-upload(file, null, "application/pdf").then(fileDetails => {
-    console.log(fileDetails);
-});
-```
+    upload(file, null, "application/pdf").then(fileDetails => {
+        console.log(fileDetails);
+    });
+    ```
 
 
 ## License
