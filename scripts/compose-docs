@@ -1,0 +1,64 @@
+#!/usr/bin/env node
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const util = require('util');
+
+// promisification
+const readdir = util.promisify(fs.readdir);
+const readFile = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
+
+const rootDir = path.resolve(__dirname, '..');
+const packagesPath = path.join(rootDir, 'packages');
+
+// Regexp that match all links to doc partials that looks like [Upload](../../docs/Upload.md)
+const regex = /(\[.*\]\(\.\.\/\.\.\/docs\/\w*\.md\))/gi;
+
+async function getPackages() {
+    const packages = await readdir(packagesPath);
+
+    return packages;
+}
+
+const partialsCache = {};
+
+async function getPartialDoc(partialPath) {
+    if (partialsCache[partialPath]) {
+        // console.log(partialPath, 'got from cache!');
+    } else {
+        // console.log(partialPath, 'saved to cache');
+        partialsCache[partialPath] = (await readFile(partialPath)).toString();
+    }
+
+    return partialsCache[partialPath];
+}
+
+async function composeDocs() {
+    const packages = await getPackages();
+
+    for (const pkg of packages) {
+        const pkgDir = path.join(packagesPath, pkg);
+        const pkgDocPath = path.join(pkgDir, 'README.md');
+        const pkgDoc = (await readFile(pkgDocPath)).toString();
+
+        const partialLinks = pkgDoc.match(regex);
+
+        const composedDoc = (partialLinks || [])
+            // resolve relative to absolute paths
+            .map(link => {
+                const linkPath = link.match(/\((.*)\)/)[1];
+                return [link, path.resolve(pkgDir, linkPath)];
+            })
+            .reduce(async (doc, [link, partialDocPath]) => {
+                const partialDoc = await getPartialDoc(partialDocPath);
+
+                return (await doc).replace(link, partialDoc);
+            }, pkgDoc);
+
+        await writeFile(pkgDocPath, await composedDoc);
+    }
+}
+
+composeDocs();
