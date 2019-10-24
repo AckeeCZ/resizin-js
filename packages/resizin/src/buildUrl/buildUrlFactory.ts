@@ -15,9 +15,7 @@ const buildUrlFactory = (options: ClientOptions) => {
 
     const serverUrl = options.serverUrl || DEFAULT_SERVER_URL;
 
-    return (imageId: string, buildOptions?: Options) => {
-        buildUrl(serverUrl, options.bucket, imageId, buildOptions);
-    };
+    return (imageId: string, buildOptions?: Options) => buildUrl(serverUrl, options.bucket, imageId, buildOptions);
 };
 
 export default buildUrlFactory;
