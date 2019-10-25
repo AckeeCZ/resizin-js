@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     webpackConfig: {
         module: {
@@ -14,10 +16,9 @@ module.exports = {
     title: 'Resizin JS StyleGuide',
     exampleMode: 'expand',
     usageMode: 'expand',
-    updateExample(props) {
-        return {
-            ...props,
-            content: props.content.replace('../src', 'react-resizin'),
-        };
+    getComponentPathLine(componentPath) {
+        const name = path.basename(componentPath, '.tsx');
+        const pkgName = componentPath.split(path.sep)[1];
+        return `import { ${name} } from '${pkgName}'`;
     },
 };
