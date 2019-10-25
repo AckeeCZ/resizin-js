@@ -17,6 +17,9 @@
   "license": "MIT",
   "readme": "README.md",
   "repository": "https://github.com/AckeeCZ/resizin-js/",
+  "dependencies": {
+    "resizin": "^0.4.0"
+  },
   "peerDependencies": {
     "react": "^16.9.0"
   },
