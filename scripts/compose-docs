@@ -14,7 +14,7 @@ const rootDir = path.resolve(__dirname, '..');
 const packagesPath = path.join(rootDir, 'packages');
 
 // Regexp that match all links to doc partials that looks like [Upload](../../docs/Upload.md)
-const regex = /(\[.*\]\(\.\.\/\.\.\/docs\/\w*\.md\))/gi;
+const regex = /(\[.*\]\([./]*\/docs\/\w*\.md\))/gi;
 
 async function getPackages() {
     const packages = await readdir(packagesPath);

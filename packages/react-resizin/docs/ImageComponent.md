@@ -1,4 +1,4 @@
-Base `Image` usage:
+Basic `Image` usage:
 
 ```jsx
 import { ResizinProvider, Image } from "../src";
