@@ -53,7 +53,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn run check"
+      "pre-push": "yarn build && yarn run check"
     }
   }
 }
