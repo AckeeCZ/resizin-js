@@ -18,6 +18,7 @@
     "type-check:watch": "yarn type-check -- --watch",
     "release": "lerna version $1",
     "start": "onchange 'packages/*/src/**/*.{ts,tsx}' -- yarn build:sources",
+    "styleguide": "styleguidist server",
     "test": "jest",
     "test:coverage": "yarn test -- --collectCoverage",
     "test:coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
@@ -29,6 +30,7 @@
     "@babel/plugin-proposal-class-properties": "^7.2.1",
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.1.0",
     "@types/enzyme": "^3.1.15",
     "@types/jest": "^23.3.13",
@@ -44,12 +46,15 @@
     "onchange": "^5.2.0",
     "prettier-config-ackee": "0.0.5",
     "prop-types": "^15.6.2",
+    "react-dom": "^16.11.0",
+    "react-styleguidist": "^9.2.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.12.0",
     "tslint-config-ackee": "^0.2.1",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.17.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.2",
+    "webpack": "^4.41.2"
   },
   "husky": {
     "hooks": {

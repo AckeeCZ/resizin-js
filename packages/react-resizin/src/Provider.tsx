@@ -1,24 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { buildUrlFactory, ClientOptions } from 'resizin';
+import { buildUrlFactory } from 'resizin';
 
 import ResizinContext from './ResizinContext';
 
 interface ProviderProps {
-    config: ClientOptions;
+    serverUrl?: string;
+    bucket: string;
 }
 
-const Provider: React.SFC<ProviderProps> = ({ config }) => {
-    const buildUrl = React.useMemo(() => buildUrlFactory(config), [config]);
+/**
+ * @example ../docs/ProviderComponent.md
+ */
+const Provider: React.SFC<ProviderProps> = ({ serverUrl, bucket, children }) => {
+    const buildUrl = React.useMemo(() => buildUrlFactory({ serverUrl, bucket }), [serverUrl, bucket]);
 
-    return <ResizinContext.Provider value={buildUrl}></ResizinContext.Provider>;
+    return <ResizinContext.Provider value={buildUrl}>{children}</ResizinContext.Provider>;
 };
 
 Provider.propTypes = {
-    config: PropTypes.shape({
-        serverUrl: PropTypes.string,
-        bucket: PropTypes.string.isRequired,
-    }).isRequired,
+    /**
+     * Image server url. It defaults to `https://img.resizin.com`.
+     */
+    serverUrl: PropTypes.string,
+    /**
+     * Name of your image server instance bucket.
+     */
+    bucket: PropTypes.string.isRequired,
 };
 
 export default Provider;
