@@ -44,7 +44,7 @@ This is a guide for those responsible for publishing new package versions.
 
 * #### ⬆️ Bump package version
     ```sh
-    yarn lerna:version
+    yarn release
     ```
 
     * Choose correct version for each package in version and confirm
