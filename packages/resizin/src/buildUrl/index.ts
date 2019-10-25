@@ -1,2 +1,3 @@
 export { default } from './buildUrl';
-export { default as buildUrlFactory } from './buildUrlFactory';
+export { default as buildUrlFactory, ClientOptions, BuildUrlFnc } from './buildUrlFactory';
+
