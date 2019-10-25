@@ -13,11 +13,11 @@ script:
 - yarn run check
 - yarn test
 - yarn build:doc
+- git commit -m "Fake commit of generated docs"
 after_script:
 - yarn test:coverage
 - yarn test:coveralls
 before_deploy:
-- git commit -m "Fake commit of generated docs"
 - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
 deploy:
   provider: script
