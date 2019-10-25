@@ -32,7 +32,7 @@ describe('Image', () => {
         expect(getByAltText('test')).toHaveAttribute('src', 'fake-image-url');
     });
 
-    it('delete image rendering to provided children function', () => {
+    it('delegate image rendering to provided children function', () => {
         const renderFnc = jest.fn().mockReturnValue(null);
         buildUrlMock.mockReturnValue('fake-image-url2');
 
