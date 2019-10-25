@@ -13,7 +13,7 @@ script:
 - yarn run check
 - yarn test
 - yarn build:doc
-- git commit -m "Fake commit of generated docs"
+- git commit -am "Fake commit of generated docs"
 after_script:
 - yarn test:coverage
 - yarn test:coveralls
