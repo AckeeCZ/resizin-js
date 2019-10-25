@@ -2,7 +2,7 @@
 
 ```typescript
 interface Options {
-    serverUrl?: string;
+    serverUrl?: string; // default is 'https://api.resizin.com'
     apiKey: string;
     autoId?: boolean;   // default is true
     fileType?: 'image'|'file'; // default is 'image'

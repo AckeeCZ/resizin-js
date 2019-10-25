@@ -38,7 +38,7 @@ const upload = uploadFactory({
 
 const file = fs.createReadStream(__dirname + '/myfile.png');
 
-resizin.upload(file).then(() => {
+upload(file).then(() => {
     ...      
 });
 ```
