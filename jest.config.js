@@ -13,7 +13,7 @@ const sharedSettings = {
 
 module.exports = {
     testPathIgnorePatterns: ['/node_modules', '/lib'],
-    setupFilesAfterEnv: ['./configure-jest.js'],
+    setupFilesAfterEnv: ['./configure-jest.ts'],
     // https://gist.github.com/thebuilder/15a084f74b1c6a1f163fc6254ad5a5ba
     projects: [
         {
