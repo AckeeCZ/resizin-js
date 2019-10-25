@@ -1,13 +1,13 @@
-Basic `Image` usage:
+Basic usage:
 
 ```jsx
-import { ResizinProvider, Image } from "../src";
+import { ResizinProvider, Image } from 'react-resizin';
 
 <ResizinProvider bucket="ackee">
     <Image
         imgId="walle"
         options={{
-            filter: "greyscale",
+            filter: 'greyscale',
             backgroundColor: '005500',
             border: [60, 60, 60, 260],
         }}
@@ -19,13 +19,13 @@ import { ResizinProvider, Image } from "../src";
 Using children func for more custom render:
 
 ```jsx
-import { ResizinProvider, Image } from "../src";
+import { ResizinProvider, Image } from 'react-resizin';
 
 <ResizinProvider bucket="ackee">
     <Image
         imgId="walle"
         options={{
-            filter: "blur",
+            filter: 'blur',
             width: 300,
             height: 200,
         }}
@@ -33,13 +33,13 @@ import { ResizinProvider, Image } from "../src";
         {url => (
             <div 
                 style={{
-                    display: "flex",
-                    alignItems: "center",
-                    textAlign: "center",
+                    display: 'flex',
+                    alignItems: 'center',
+                    textAlign: 'center',
                     width: 300,
                     height: 200,
                     backgroundImage: `url(${url})`,
-                    font: "30px bold",
+                    font: '30px bold',
                 }}>
                 Has blured image as a background
             </div>
