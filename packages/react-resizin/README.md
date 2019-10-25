@@ -1,7 +1,7 @@
 # react-resizin
 [![Bundlephobia](https://img.shields.io/bundlephobia/minzip/react-resizin.svg)](https://bundlephobia.com/result?p=react-resizin)
 
-React components for easy displaying of images from [`Resizin`](https://www.npmjs.com/package/resizin) image server.
+React components for easy displaying images from [`Resizin`](https://www.npmjs.com/package/resizin) image server.
 
 ## Table of contents
 

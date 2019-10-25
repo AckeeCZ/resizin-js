@@ -14,6 +14,7 @@ Consists of
 
 * [resizin](packages/resizin/README.md) - core package containing base functions for communicating with image server
 * [node-resizin](packages/node-resizin/README.md) - wrapper around `resizin` package for using it in node.js environment
+* [react-resizin](packages/react-resizin/README.md) - react components for easy displaying images from Resizin image server.
 
 ## Contribution
 
