@@ -39,25 +39,29 @@ async function composeDocs() {
     const packages = await getPackages();
 
     for (const pkg of packages) {
-        const pkgDir = path.join(packagesPath, pkg);
-        const pkgDocPath = path.join(pkgDir, 'README.md');
-        const pkgDoc = (await readFile(pkgDocPath)).toString();
+        try {
+            const pkgDir = path.join(packagesPath, pkg);
+            const pkgDocPath = path.join(pkgDir, 'README.md');
+            const pkgDoc = (await readFile(pkgDocPath)).toString();
 
-        const partialLinks = pkgDoc.match(regex);
+            const partialLinks = pkgDoc.match(regex);
 
-        const composedDoc = (partialLinks || [])
-            // resolve relative to absolute paths
-            .map(link => {
-                const linkPath = link.match(/\((.*)\)/)[1];
-                return [link, path.resolve(pkgDir, linkPath)];
-            })
-            .reduce(async (doc, [link, partialDocPath]) => {
-                const partialDoc = await getPartialDoc(partialDocPath);
+            const composedDoc = (partialLinks || [])
+                // resolve relative to absolute paths
+                .map(link => {
+                    const linkPath = link.match(/\((.*)\)/)[1];
+                    return [link, path.resolve(pkgDir, linkPath)];
+                })
+                .reduce(async (doc, [link, partialDocPath]) => {
+                    const partialDoc = await getPartialDoc(partialDocPath);
 
-                return (await doc).replace(link, partialDoc);
-            }, pkgDoc);
+                    return (await doc).replace(link, partialDoc);
+                }, pkgDoc);
 
-        await writeFile(pkgDocPath, await composedDoc);
+            await writeFile(pkgDocPath, await composedDoc);
+        } catch (err) {
+            console.error('Failed to compose doc of', pkg, ':', err);
+        }
     }
 }
 
