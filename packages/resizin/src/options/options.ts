@@ -3,7 +3,7 @@ import { isArray, map, find, castArray, isEmpty } from 'lodash';
 export interface Options {
     width?: number;
     height?: number;
-    filter?: 'sepia' | 'grayscale' | 'sharpen' | 'blur' | 'negative' | 'edge' | 'gauss';
+    filter?: 'sepia' | 'greyscale' | 'sharpen' | 'blur' | 'negative' | 'edge' | 'gauss';
     square?: number;
     gravity?: 'north' | 'south' | 'east' | 'center' | 'west' | 'northeast' | 'southeast' | 'southwest' | 'face';
     crop?: 'fill' | 'fit' | 'pad' | 'scale' | 'cut' | 'face';
@@ -51,7 +51,7 @@ const OPTIONS: { [key: string]: OptionDefinition } = {
     height: { identifier: 'h', transform: TRANSFORMS.int },
     filter: {
         identifier: 'f',
-        transform: TRANSFORMS.enum(['sepia', 'grayscale', 'sharpen', 'blur', 'negative', 'edge', 'gauss']),
+        transform: TRANSFORMS.enum(['sepia', 'greyscale', 'sharpen', 'blur', 'negative', 'edge', 'gauss']),
     },
     square: { identifier: 's', transform: TRANSFORMS.int },
     gravity: {

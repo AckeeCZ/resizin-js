@@ -14,3 +14,14 @@ Consists of
 
 * [resizin](packages/resizin/README.md) - core package containing base functions for communicating with image server
 * [node-resizin](packages/node-resizin/README.md) - wrapper around `resizin` package for using it in node.js environment
+
+## Contribution
+
+Any contributions that make packages better are very welcome.   
+Source code of packages is written in Typescript and repository is organized as a monorepo using [`lerna`](https://github.com/lerna/lerna) and [`yarn` workspaces](https://yarnpkg.com/lang/en/docs/workspaces/).
+
+To start developing them, read a [Contribution guide](./Contribution).
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)

@@ -1,2 +1,5 @@
+import { buildUrlFactory, default as buildUrl } from './buildUrl';
+
 export { default as upload, uploadFactory } from './upload';
-export { default as buildUrl, buildUrlFactory } from './buildUrl';
+
+export { buildUrl, buildUrlFactory, buildUrlFactory as default };

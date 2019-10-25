@@ -12,6 +12,7 @@ script:
 - yarn build
 - yarn run check
 - yarn test
+- yarn build:doc
 after_script:
 - yarn test:coverage
 - yarn test:coveralls
