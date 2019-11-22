@@ -12,7 +12,7 @@ export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 /**
- * @example ../docs/ImageComponent.md
+ * @example ../../docs/ImageComponent.md
  */
 
 const Image: React.SFC<ImageProps> = ({ imgId, options, children, ...props }) => (

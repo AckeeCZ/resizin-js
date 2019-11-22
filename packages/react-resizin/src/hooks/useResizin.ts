@@ -1,5 +1,5 @@
 import React from 'react';
-import ResizinContext from '../ResizinContext';
+import ResizinContext from '../components/ResizinContext';
 
 const useResizin = () => {
     const buildImageUrl = React.useContext(ResizinContext);
