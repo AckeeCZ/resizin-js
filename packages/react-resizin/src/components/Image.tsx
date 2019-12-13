@@ -1,5 +1,6 @@
 import React, { ImgHTMLAttributes } from 'react';
 import PropTypes from 'prop-types';
+import { Options } from 'resizin';
 
 import ResizinContext from './ResizinContext';
 
@@ -7,7 +8,7 @@ type RenderImageFnc = (url: string) => any;
 
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     imgId: string;
-    options?: object;
+    options?: Options;
     children?: RenderImageFnc | null;
 }
 
