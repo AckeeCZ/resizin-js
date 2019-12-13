@@ -1,1 +1,1 @@
-export { default as useResizin } from './useResizin';
+export { default as useImage } from './useImage';

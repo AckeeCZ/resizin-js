@@ -1,8 +1,11 @@
+import React from 'react';
 import { Options } from 'resizin';
-import useResizin from './useResizin';
+
+import ResizinContext from '../components/ResizinContext';
 
 const useImage = (imageId: string, options: Options): string => {
-    const buildImageUrl = useResizin();
+    const buildImageUrl = React.useContext(ResizinContext);
+
     return buildImageUrl(imageId, options);
 };
 
