@@ -10,6 +10,7 @@ React components for easy displaying images from [`Resizin`](https://www.npmjs.c
 * [API](#api)
     * [`ResizinProvider`](#resizinprovider)
     * [`Image`](#image)
+    * [`useImage`](#use-image)
 
 ## Installation
 
@@ -73,6 +74,43 @@ Render image as a standard `img` tag (unless you provide children func, see belo
 * **children** - If you need to render image in different way than as an `img`, provide a function as a component children. The function has the image url as a first argument.
 
 [**Image examples**](./docs/ImageComponent.md)
+
+### `useImage`
+
+Image url can also be generated with this React hook. It has a signature
+
+```js
+useImage(imageId, imgOptions)
+```
+
+and can be used as
+
+```jsx
+import { ResizinProvider, useImage } from 'react-resizin';
+
+const MyContent = () => {
+    const url = useImage('walle', {
+        filter: 'blur',
+        width: 300,
+        height: 200,
+    });
+    return (
+        <div
+            style={{
+                backgroundImage: `url(${url})`
+            }}
+        >
+            I'm Wall-E
+        </div>
+    )
+}
+
+render(
+    <ResizinProvider bucket="ackee">
+        <MyContent>
+    </ResizinProvider>
+)
+```
 
 ## License
 
