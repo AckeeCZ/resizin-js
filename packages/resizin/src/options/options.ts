@@ -9,7 +9,7 @@ export interface Options {
     crop?: 'fill' | 'fit' | 'pad' | 'scale' | 'cut' | 'face';
     left?: number;
     top?: number;
-    rotate?: 90 | 180 | 270 | 360;
+    rotate?: 90 | 180 | 270;
     border?: number;
     backgroundColor?: string;
     quality?: number;
@@ -71,7 +71,7 @@ const OPTIONS: { [key: string]: OptionDefinition } = {
     crop: { identifier: 'c', transform: TRANSFORMS.enum(['fill', 'fit', 'pad', 'scale', 'cut', 'face']) },
     left: { identifier: 'x', transform: TRANSFORMS.int },
     top: { identifier: 'y', transform: TRANSFORMS.int },
-    rotate: { identifier: 'r', transform: TRANSFORMS.enum([90, 180, 270, 360]) },
+    rotate: { identifier: 'r', transform: TRANSFORMS.enum([90, 180, 270]) },
     border: { identifier: 'b', transform: TRANSFORMS.intArray },
     backgroundColor: { identifier: 'bg' },
     quality: { identifier: 'q', transform: TRANSFORMS.int },
