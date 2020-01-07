@@ -24,6 +24,8 @@
     "react": "^16.9.0"
   },
   "devDependencies": {
-    "react": "^16.9.0"
+    "@testing-library/react-hooks": "^3.2.1",
+    "react": "^16.9.0",
+    "react-test-renderer": "^16.9.0"
   }
 }

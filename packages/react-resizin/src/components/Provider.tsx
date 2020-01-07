@@ -10,7 +10,7 @@ interface ProviderProps {
 }
 
 /**
- * @example ../docs/ProviderComponent.md
+ * @example ../../docs/ProviderComponent.md
  */
 const Provider: React.SFC<ProviderProps> = ({ serverUrl, bucket, children }) => {
     const buildUrl = React.useMemo(() => buildUrlFactory({ serverUrl, bucket }), [serverUrl, bucket]);
