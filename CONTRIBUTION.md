@@ -47,7 +47,7 @@ This is a guide for those responsible for publishing new package versions.
     yarn release
     ```
 
-    * Choose correct version of each chaned package and confirm
+    * Choose correct version of each changed package and confirm
     * New commit will be created, tagged and pushed to the repository 
 
 * #### 🚀 Package is published automatically from CI server
