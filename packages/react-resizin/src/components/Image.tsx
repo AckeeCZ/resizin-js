@@ -9,6 +9,7 @@ type RenderImageFnc = (url: string) => any;
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     imgId: string;
     options?: Options;
+    innerRef: React.Ref<HTMLImageElement>;
     children?: RenderImageFnc | null;
 }
 
@@ -16,12 +17,12 @@ export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
  * @example ../../docs/ImageComponent.md
  */
 
-const Image: React.SFC<ImageProps> = ({ imgId, options, children, ...props }) => (
+const Image: React.SFC<ImageProps> = ({ imgId, options, innerRef, children, ...props }) => (
     <ResizinContext.Consumer>
         {buildUrl => {
             const url = buildUrl(imgId, options);
 
-            return children ? children(url) : <img {...props} src={url} />;
+            return children ? children(url) : <img {...props} ref={innerRef} src={url} />;
         }}
     </ResizinContext.Consumer>
 );
