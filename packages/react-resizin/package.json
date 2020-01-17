@@ -1,6 +1,6 @@
 {
   "name": "react-resizin",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "React components for easy displaying of images from Resizin image server",
   "main": "lib/index.js",
   "module": "es/index.js",
