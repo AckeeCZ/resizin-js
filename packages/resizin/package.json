@@ -1,6 +1,6 @@
 {
   "name": "resizin",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Utilities for easy use of the image server Resizin",
   "main": "lib/index.js",
   "module": "es/index.js",
