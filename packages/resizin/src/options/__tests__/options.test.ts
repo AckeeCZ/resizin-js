@@ -112,13 +112,13 @@ describe('Options serialization', () => {
             expect(serializeOptions({ top: NaN })).toEqual('');
             expect(serializeOptions({ top: Infinity })).toEqual('');
             expect(serializeOptions({ top: 'g60h' })).toEqual('');
+            expect(serializeOptions({ rotate: 360 })).toEqual('');
         });
 
         it('should use rotate value if it is one of allowed', () => {
             expect(serializeOptions({ rotate: 90 })).toEqual('r_90');
             expect(serializeOptions({ rotate: 180 })).toEqual('r_180');
             expect(serializeOptions({ rotate: 270 })).toEqual('r_270');
-            expect(serializeOptions({ rotate: 360 })).toEqual('r_360');
         });
 
         it('should omit rotate value if it is allowed number but as a string', () => {
