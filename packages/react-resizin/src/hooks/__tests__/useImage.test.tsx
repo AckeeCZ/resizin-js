@@ -31,4 +31,11 @@ describe('Image', () => {
 
         expect(result.current).toEqual('http://image-url');
     });
+
+    it('return null when image id is falsy', () => {
+        const wrapper = ({ children }) => <ResizinProvider bucket="bar">{children}</ResizinProvider>;
+        const { result } = renderHook(() => useImage(null), { wrapper });
+
+        expect(result.current).toEqual(null);
+    });
 });

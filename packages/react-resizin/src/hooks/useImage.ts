@@ -2,11 +2,10 @@ import { Options } from 'resizin';
 
 import useResizinContext from './useResizinContext';
 
-const useImage = (imageId: string, options?: Options): string => {
+const useImage = (imageId: string, options?: Options): string|null => {
     const buildImageUrl = useResizinContext();
 
-    return buildImageUrl(imageId, options);
+    return imageId ? buildImageUrl(imageId, options) : null;
 };
 
 export default useImage;
-
