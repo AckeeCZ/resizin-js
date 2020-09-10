@@ -55,8 +55,7 @@
     "tslint-config-ackee": "^0.2.1",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.17.0",
-    "typescript": "^3.2.2",
-    "webpack": "^4.41.2"
+    "typescript": "^3.2.2"
   },
   "husky": {
     "hooks": {
