@@ -1,8 +1,6 @@
 import { uploadFactory } from 'resizin';
-import FormData from 'form-data';
+import FormDataPolyfill from 'form-data';
 
-declare type ExtendedNodeJSGlobal = NodeJS.Global & { FormData: typeof FormData };
-
-(global as ExtendedNodeJSGlobal).FormData = FormData;
+global.FormData = FormDataPolyfill as any;
 
 module.exports = uploadFactory;
