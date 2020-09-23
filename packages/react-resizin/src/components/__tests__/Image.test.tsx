@@ -36,7 +36,7 @@ describe('Image', () => {
         const renderFnc = jest.fn().mockReturnValue(null);
         buildUrlMock.mockReturnValue('fake-image-url2');
 
-        const { getByAltText } = render(
+        render(
             <ResizinProvider bucket="">
                 <Image imgId="foo" alt="test">
                     {renderFnc}
