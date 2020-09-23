@@ -16,7 +16,7 @@ Consists of
 Any contributions that make packages better are very welcome.   
 Source code of packages is written in Typescript and repository is organized as a monorepo using [`lerna`](https://github.com/lerna/lerna) and [`yarn` workspaces](https://yarnpkg.com/lang/en/docs/workspaces/).
 
-To start developing them, read a [Contribution guide](./Contribution).
+To start developing them, read a [Contribution guide](./CONTRIBUTION.md).
 
 ## License
 
