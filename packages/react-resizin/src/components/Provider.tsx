@@ -12,7 +12,7 @@ interface ProviderProps {
 /**
  * @example ../../docs/ProviderComponent.md
  */
-const Provider: React.SFC<ProviderProps> = ({ serverUrl, bucket, children }) => {
+const Provider: React.FunctionComponent<ProviderProps> = ({ serverUrl, bucket, children }) => {
     const buildUrl = React.useMemo(() => buildUrlFactory({ serverUrl, bucket }), [serverUrl, bucket]);
 
     return <ResizinContext.Provider value={buildUrl}>{children}</ResizinContext.Provider>;

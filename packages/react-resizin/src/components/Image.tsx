@@ -17,7 +17,7 @@ export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
  * @example ../../docs/ImageComponent.md
  */
 
-const Image: React.SFC<ImageProps> = ({ imgId, options, innerRef, children, ...props }) => (
+const Image: React.FunctionComponent<ImageProps> = ({ imgId, options, innerRef, children, ...props }) => (
     <ResizinContext.Consumer>
         {buildUrl => {
             const url = buildUrl(imgId, options);
