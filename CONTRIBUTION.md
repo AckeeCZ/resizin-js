@@ -9,7 +9,7 @@ You need to have installed package manager `yarn`.
 * #### ⚙️ Install dependencies
 
     ```sh
-    yarn bootstrap
+    yarn && yarn bootstrap
     ```
 
 * #### 🔎 Watch source changes
@@ -17,7 +17,7 @@ You need to have installed package manager `yarn`.
     Start watcher that check for changes and transpiles typescript into javascript
 
     ```sh
-    yarn onchange
+    yarn start
     ```
 
     Start watcher that checks using correct types in code
@@ -26,7 +26,7 @@ You need to have installed package manager `yarn`.
     yarn type-check:watch
     ```
 
-    > Note: You can read about reaason why transpilation and type checking is separated [in the article](https://iamturns.com/typescript-babel/).
+    > Note: You can read about reason why transpilation and type checking is separated [in the article](https://iamturns.com/typescript-babel/).
 
 * #### ✅ Check tests pass
 
