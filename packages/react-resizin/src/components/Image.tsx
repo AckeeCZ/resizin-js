@@ -9,7 +9,7 @@ type RenderImageFnc = (url: string) => any;
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     imgId: string;
     options?: Options;
-    innerRef: React.Ref<HTMLImageElement>;
+    innerRef?: React.Ref<HTMLImageElement>;
     children?: RenderImageFnc | null;
 }
 
