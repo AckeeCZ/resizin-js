@@ -12,6 +12,7 @@ You need to have installed package manager `yarn`.
     yarn && yarn bootstrap
     ```
 
+
 * #### 🔎 Watch source changes
 
     Start watcher that check for changes and transpiles typescript into javascript
@@ -20,9 +21,10 @@ You need to have installed package manager `yarn`.
     yarn start
     ```
 
-    Start watcher that checks using correct types in code
+    Build types and start watcher that checks using correct types in code
 
     ```sh
+    yarn build:types
     yarn type-check:watch
     ```
 
