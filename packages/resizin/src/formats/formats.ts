@@ -1,0 +1,1 @@
+export type Formats = 'o_jpg' | 'o_webp' | '';

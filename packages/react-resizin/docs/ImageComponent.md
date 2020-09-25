@@ -12,6 +12,7 @@ import { ResizinProvider, Image } from 'react-resizin';
             border: [60, 60, 60, 260],
         }}
         height="200" 
+        format="o_webp"
     />
 </ResizinProvider>
 ```

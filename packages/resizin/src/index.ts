@@ -7,3 +7,4 @@ export {
 } from './buildUrl';
 export { default as upload, uploadFactory } from './upload';
 export { Options } from './options';
+export { Formats } from './formats';

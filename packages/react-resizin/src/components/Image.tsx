@@ -1,6 +1,6 @@
 import React, { ImgHTMLAttributes } from 'react';
 import PropTypes from 'prop-types';
-import { Options } from 'resizin';
+import { Options, Formats } from 'resizin';
 
 import ResizinContext from './ResizinContext';
 
@@ -9,6 +9,7 @@ type RenderImageFnc = (url: string) => any;
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     imgId: string;
     options?: Options;
+    format?: Formats;
     innerRef?: React.Ref<HTMLImageElement>;
     children?: RenderImageFnc | null;
 }
@@ -17,10 +18,10 @@ export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
  * @example ../../docs/ImageComponent.md
  */
 
-const Image: React.FunctionComponent<ImageProps> = ({ imgId, options, innerRef, children, ...props }) => (
+const Image: React.FunctionComponent<ImageProps> = ({ imgId, options, format, innerRef, children, ...props }) => (
     <ResizinContext.Consumer>
         {buildUrl => {
-            const url = buildUrl(imgId, options);
+            const url = buildUrl(imgId, options, format);
 
             return children ? children(url) : <img {...props} ref={innerRef} src={url} />;
         }}
@@ -41,11 +42,13 @@ Image.propTypes = {
      * for rendering an image.
      */
     children: PropTypes.func,
+    format: PropTypes.oneOf(['o_jpg', 'o_webp', '']),
 };
 
 Image.defaultProps = {
     options: {},
     children: null,
+    format: '',
 };
 
 export default Image;
