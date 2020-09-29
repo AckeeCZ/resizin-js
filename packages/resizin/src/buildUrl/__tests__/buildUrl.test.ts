@@ -7,7 +7,14 @@ describe('Build source url', () => {
     it('append slash to serialized options and make the url', () => {
         (serializeOptions as jest.Mock).mockReturnValue('serialized-options-mock');
         expect(buildUrl('base', 'test-bucket', 'image1', { width: 14, crop: 'fill' })).toEqual(
-            'base/test-bucket/image/serialized-options-mock/image1',
+            `base/test-bucket/image/serialized-options-mock/image1`,
+        );
+    });
+
+    it('use passed format and make url', () => {
+        (serializeOptions as jest.Mock).mockReturnValue('serialized-options-mock');
+        expect(buildUrl('base', 'test-bucket', 'image1', { width: 14, crop: 'fill' }, 'o_jpeg')).toEqual(
+            `base/test-bucket/image/o_jpeg-serialized-options-mock/image1`,
         );
     });
 
@@ -15,6 +22,12 @@ describe('Build source url', () => {
         (serializeOptions as jest.Mock).mockReturnValue('');
 
         expect(buildUrl('base', 'test-bucket', 'image2', {})).toEqual('base/test-bucket/image/image2');
+    });
+
+    it('should omit format if its undefined', () => {
+        (serializeOptions as jest.Mock).mockReturnValue('');
+
+        expect(buildUrl('base', 'test-bucket', 'image2', {}, undefined)).toEqual('base/test-bucket/image/image2');
     });
 
     it('should prevent doubled slashes when image id starts with slash and there are options', () => {

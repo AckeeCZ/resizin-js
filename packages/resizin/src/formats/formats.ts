@@ -1,1 +1,1 @@
-export type Formats = 'o_jpg' | 'o_webp' | 'o_png' | 'o_tiff' | '';
+export type Formats = 'o_jpeg' | 'o_jpg' | 'o_webp' | 'o_png' | 'o_tiff' | '';

@@ -1,7 +1,7 @@
 import { serializeOptions, Options } from '../options';
 import { Formats } from '../formats';
 
-const buildUrl = (serverUrl: string, bucket: string, imageId: string, options?: Options, format?: Formats) => {
+const buildUrl = (serverUrl: string, bucket: string, imageId: string, options?: Options, format: Formats = '') => {
     let serializedOptions = serializeOptions(options);
 
     if (serializedOptions) {

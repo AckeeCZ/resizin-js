@@ -42,7 +42,7 @@ Image.propTypes = {
      * for rendering an image.
      */
     children: PropTypes.func,
-    format: PropTypes.oneOf(['o_jpg', 'o_webp', '']),
+    format: PropTypes.oneOf(['o_jpeg', 'o_jpg', 'o_webp', 'o_png', 'o_tiff', '']),
 };
 
 Image.defaultProps = {
