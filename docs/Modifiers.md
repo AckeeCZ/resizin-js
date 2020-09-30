@@ -14,6 +14,7 @@ You can try all modifiers at <a href="https://resizin.com/" target="_blank">Inte
 * [`backgroundColor`](#backgroundcolor)
 * [`quality`](#quality)
 * [`upscale`](#upscale)
+* [`format`](#format)
 
 #### `width`
 Determines width of an image.  
@@ -352,4 +353,27 @@ Value is `true` or `false`.
 <figure style="margin: 10px; display: inline-block">
   <img src="https://img.resizin.com/ackee/image/w_350-u_1/walle" alt="upscale Example 2">
   <figcaption style="text-align:center"><code>Upscale true</code></figcaption>
+</figure>
+
+#### `format`
+
+Allows you to specify the file type, accepts one of the following strings: `jpg`, `jpeg`, `png`, `webp`, `tiff`
+
+Default format is the original format of the image when it was uploaded. 
+
+```js
+{
+    width: 350
+    format: 'png',
+}
+```
+
+<figure style="margin: 10px; display: inline-block">
+  <img src="https://img.resizin.com/ackee/image/w_350-o_png/walle" alt="upscale Example 1">
+  <figcaption style="text-align:center"><code>Format png</code></figcaption>
+</figure>
+
+<figure style="margin: 10px; display: inline-block">
+  <img src="https://img.resizin.com/ackee/image/w_350-o_jpg/walle" alt="upscale Example 1">
+  <figcaption style="text-align:center"><code>Format jpg</code></figcaption>
 </figure>
