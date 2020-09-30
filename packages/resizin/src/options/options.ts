@@ -14,7 +14,7 @@ export interface Options {
     backgroundColor?: string;
     quality?: number;
     upscale?: boolean;
-    format?: 'jpg' | 'jpeg' | 'webp' | 'png' | 'tiff'; 
+    format?: 'jpg' | 'jpeg' | 'webp' | 'png' | 'tiff';
 }
 
 declare type Transformation<T = any> = (value: T) => string;
