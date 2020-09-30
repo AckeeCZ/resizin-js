@@ -10,6 +10,7 @@ import { ResizinProvider, Image } from 'react-resizin';
             filter: 'greyscale',
             backgroundColor: '005500',
             border: [60, 60, 60, 260],
+            format: 'png'
         }}
         height="200" 
     />

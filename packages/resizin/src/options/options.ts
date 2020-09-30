@@ -14,6 +14,7 @@ export interface Options {
     backgroundColor?: string;
     quality?: number;
     upscale?: boolean;
+    format?: 'jpg' | 'jpeg' | 'webp' | 'png' | 'tiff';
 }
 
 declare type Transformation<T = any> = (value: T) => string;
@@ -76,6 +77,7 @@ const OPTIONS: { [key: string]: OptionDefinition } = {
     backgroundColor: { identifier: 'bg' },
     quality: { identifier: 'q', transform: TRANSFORMS.int },
     upscale: { identifier: 'u', transform: TRANSFORMS.bool },
+    format: { identifier: 'o', transform: TRANSFORMS.enum(['jpg', 'jpeg', 'webp', 'png', 'tiff']) },
 };
 
 const serializeOption = (value: any, optionName: string) => {
