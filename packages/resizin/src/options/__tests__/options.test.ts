@@ -168,6 +168,20 @@ describe('Options serialization', () => {
         it('should omit upscale if it is falsy', () => {
             expect(serializeOptions({ upscale: false })).toEqual('');
         });
+
+        it('should use format value if it is one of allowed', () => {
+            expect(serializeOptions({ format: 'jpg' })).toEqual('o_jpg');
+            expect(serializeOptions({ format: 'jpeg' })).toEqual('o_jpeg');
+            expect(serializeOptions({ format: 'png' })).toEqual('o_png');
+            expect(serializeOptions({ format: 'webp' })).toEqual('o_webp');
+            expect(serializeOptions({ format: 'tiff' })).toEqual('o_tiff');
+        });
+
+        it('should omit format value if it is not one of allowed', () => {
+            expect(serializeOptions({ format: 'pneg' })).toEqual('');
+            expect(serializeOptions({ format: 'tiggg' })).toEqual('');
+            expect(serializeOptions({ format: 56 })).toEqual('');
+        });
     });
 
     it('should return list of serialized options delimited by dash', () => {
