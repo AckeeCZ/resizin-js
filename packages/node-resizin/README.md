@@ -26,7 +26,7 @@ yarn add node-resizin
 ## Quick start
 
 ```js
-const { uploadFactory } = require('node-resizin');
+const uploadFactory = require('node-resizin');
 
 const fs = require('fs');
 const config = require('../config');
@@ -51,7 +51,7 @@ upload(file).then(() => {
 *  There is also third parametr, available only for Node.js, that determines file mime type. The mime type is optional and defaults to `application/octet-stream`.
 
     ```js
-    const { uploadFactory } = require('node-resizin');
+    const uploadFactory = require('node-resizin');
 
     const fs = require('fs');
     const config = require('../config');
