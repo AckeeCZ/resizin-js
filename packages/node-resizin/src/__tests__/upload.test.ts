@@ -1,12 +1,12 @@
-import fetch from 'isomorphic-fetch';
-import FormData from 'form-data';
-import uploadImage from '../';
+const isomorphicFetch = require('isomorphic-fetch');
+const FormDataPolyfill = require('form-data');
+const uploadImage = require('../');
 
 jest.mock('isomorphic-fetch');
 jest.mock('form-data');
 
-const FormDataMock = (FormData as unknown) as jest.Mock<FormData>;
-const fetchMock = fetch as jest.Mock<fetch>;
+const FormDataMock = (FormDataPolyfill as unknown) as jest.Mock<typeof FormDataPolyfill>;
+const fetchMock = isomorphicFetch as jest.Mock<typeof isomorphicFetch>;
 
 describe('Upload image', () => {
     let responseObj;

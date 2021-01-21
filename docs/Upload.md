@@ -16,7 +16,26 @@ interface Options {
     - `file` - when selected you can still upload images
     - `image` - there are restrictions about uploaded file
 
-the factory returns function **`upload(file, imageId?): Promise`**
+the factory returns function **`upload(file, imageId?): Promise<UploadedImageInfo>`** where `UploadImageInfo` is defined as
+
+```typescript
+  interface UploadedImageInfo {
+    key: string;
+    size: string;
+    mime_type: string;
+    updated_at: string;
+    created_at: string;
+  }
+}
+```
+
+- `key` - identificator used to store the image at Resizin
+- `size` - size of image in bytes (**it's a `string`!**)
+- `mime_type` - image mime type
+- `updated_at` -  ISO format date of image last update 
+- `created_at` -  ISO format date of image creation
+    
+Look at some example
 
 ```js
 import { uploadFactory } from 'resizin';
@@ -26,8 +45,19 @@ const upload = uploadFactory({
     apiKey: config.RESIZIN_API_KEY,
 });
 
-upload(files[0], "Walle on the road");
+upload(files[0], "Walle on the road").then(response => {
+    console.log(response)
+    //  {
+    //      key: '4f17e1b05bdc11eb9c9d3d0fd828e58f',
+    //      size: '39952',
+    //      mime_type: 'image/png',
+    //      updated_at: '2021-01-21T11:32:14.650Z',
+    //      created_at: '2021-01-21T11:32:14.650Z',
+    //  }
+});
 ```
+
+
 
 #### Usage tips
 

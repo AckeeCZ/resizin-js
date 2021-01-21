@@ -48,7 +48,7 @@ upload(file).then(() => {
 ## API
 
 [**Upload factory documentation**](../../docs/Upload.md)
-*  There is also third parametr, available only for Node.js, that determines file mime type. The mime type is optional and defaults to `application/octet-stream`.
+*  There is also third parameter, available only for Node.js, that determines file mime type. The mime type is optional and defaults to `application/octet-stream`.
 
     ```js
     const uploadFactory = require('node-resizin');
