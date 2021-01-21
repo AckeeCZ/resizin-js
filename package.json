@@ -1,6 +1,6 @@
 {
   "name": "ackee-image-server",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "main": "index.js",
   "author": "Jakub Baierl <jakub.baierl@ackee.cz> (http://ackee.cz)",
   "keywords": "ackee, imageserver, javascript, node.js, image, library, upload",

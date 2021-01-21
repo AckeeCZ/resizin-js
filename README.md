@@ -1,13 +1,11 @@
-# Package is currently being revitalised
+![](https://miro.medium.com/max/1000/1*pgkznru-839l6Ttm9zavqQ.png)
 
 > This package is not maintained anymore. Use one of these packages instead
 > * [resizin](https://www.npmjs.com/package/resizin)
 > * [react-resizin](https://www.npmjs.com/package/react-resizin)
 > * [node-resizin](https://www.npmjs.com/package/node-resizin)
 
-![](http://static1.1.sqspcdn.com/static/f/207938/4844797/1258911333857/12345under.jpg)
 
-# SDK for Image Server services
 
 Contains uploading component for upload images and build component to easily building URL for getting chosen image from server.
 Interactive documentation <a href="https://imageserver.ack.ee/" target="_blank">here</a>.
