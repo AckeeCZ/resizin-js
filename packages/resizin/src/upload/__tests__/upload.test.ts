@@ -1,20 +1,23 @@
 import uploadImage from '../upload';
 import fetch from 'isomorphic-fetch';
-import uuid from 'uuid/v1';
+import { v1 as uuidv1 } from 'uuid';
 
 jest.mock('isomorphic-fetch');
 jest.mock('form-data');
-jest.mock('uuid/v1');
+jest.mock('uuid');
 
-const fetchMock = fetch as jest.Mock<fetch>;
-const getUniqueId = uuid as jest.Mock<uuid>;
+const fetchMock = (fetch as unknown) as jest.Mock<typeof fetch>;
+const getUniqueId = (uuidv1 as unknown) as jest.Mock<typeof uuidv1>;
 
 describe('Upload image', () => {
     class FormDataMock {
         append = jest.fn();
     }
 
-    let responseObj;
+    let responseObj: {
+        json: jest.Mock;
+        status: null | number;
+    };
 
     beforeEach(() => {
         (global as any).FormData = FormDataMock;
