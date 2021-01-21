@@ -1,7 +1,9 @@
 import { defaults } from 'lodash';
 import fetch from 'isomorphic-fetch';
 import Promise from 'promise-polyfill';
-import getUniqueId from 'uuid/v1';
+import { v1 as uuidv1 } from 'uuid';
+
+const getUniqueId = () => uuidv1();
 
 const type = {
     IMAGE: 'image',
@@ -26,8 +28,8 @@ const defaultOptions = { fileType: type.IMAGE, autoId: true };
 const uploadImage = (
     serverUrl: string,
     apiKey: string,
-    imageId: string|null,
-    file: string|Blob,
+    imageId: string | null,
+    file: string | Blob,
     uploadOptions?: UploadOptions,
 ) => {
     return Promise.resolve().then(() => {
@@ -55,7 +57,7 @@ const uploadImage = (
         };
 
         const formData = new FormData();
-        const id = options.autoId && !imageId ? getUniqueId() : imageId as string;
+        const id = options.autoId && !imageId ? getUniqueId() : (imageId as string);
 
         // TODO - how to deal with FormData having different interface in different environments.
         // At Browser app there is a native FormData which accepts only filename as a third parameter
