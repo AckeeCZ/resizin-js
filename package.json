@@ -61,5 +61,8 @@
     "hooks": {
       "pre-push": "yarn build && yarn run check"
     }
+  },
+  "resolutions": {
+    "ssri": "^8.0.1"
   }
 }
