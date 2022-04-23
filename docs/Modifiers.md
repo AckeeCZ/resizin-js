@@ -177,12 +177,17 @@ Value is one of **`fill`**, **`fit`**, **`pad`**, **`scale`**, **`cut`**, **`fac
 }
 ```
 
-* `fit` (default) - maintain original proportions, resize so image fits wholly into new dimensions
+* `fit` - maintain original proportions, resize so image fits wholly into new dimensions
 * `fill` - maintain original proportions, resize via smallest dimension, crop the largest
 * `cut` - maintain original proportions, no resize, crop to gravity or x/y
 * `scale` - do not maintain original proportions, force image to be new dimensions (squishing the image)
 * `pad` - maintain original proportions, resize so image fits wholly into new dimensions. Padding added on top/bottom or left/right as needed.
 * `face` - crops photo around face, if size is specified image is resized after cropping
+
+Default value is usually `fit`.   
+If one of the following conditions is met then default value is `fill`:
+  * square modifier is used
+  * gravity is used and its value is not equal to center
 
 <figure style="margin: 5px; width: 150px; display: inline-block">
   <img src="https://img.resizin.com/ackee/image/w_150-h_250-c_fill/walle" alt="Crop Example fill">
