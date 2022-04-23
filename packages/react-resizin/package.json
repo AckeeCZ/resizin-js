@@ -1,6 +1,6 @@
 {
   "name": "react-resizin",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "description": "React components for easy displaying of images from Resizin image server",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -18,7 +18,7 @@
   "readme": "README.md",
   "repository": "https://github.com/AckeeCZ/resizin-js/",
   "dependencies": {
-    "resizin": "^0.8.2"
+    "resizin": "^0.9.0"
   },
   "peerDependencies": {
     "react": "^17.0.2"
