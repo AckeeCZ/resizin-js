@@ -1,6 +1,6 @@
 {
   "name": "node-resizin",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Node package for uploading to the image server Resizin",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -25,6 +25,6 @@
   "repository": "https://github.com/AckeeCZ/resizin-js/",
   "dependencies": {
     "form-data": "^2.1.4",
-    "resizin": "^0.8.1"
+    "resizin": "^0.8.2"
   }
 }
