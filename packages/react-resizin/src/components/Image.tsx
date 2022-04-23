@@ -6,7 +6,7 @@ import ResizinContext from './ResizinContext';
 
 type RenderImageFnc = (url: string) => any;
 
-export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+export interface ImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'children'> {
     imgId: string;
     options?: Options;
     innerRef?: React.Ref<HTMLImageElement>;
@@ -17,7 +17,7 @@ export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
  * @example ../../docs/ImageComponent.md
  */
 
-const Image: React.FunctionComponent<ImageProps> = ({ imgId, options, innerRef, children, ...props }) => (
+const Image = ({ imgId, options, innerRef, children, ...props }: ImageProps) => (
     <ResizinContext.Consumer>
         {buildUrl => {
             const url = buildUrl(imgId, options);

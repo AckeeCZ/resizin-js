@@ -13,7 +13,7 @@ describe('Image', () => {
     const buildUrlMock = jest.fn();
 
     beforeAll(() => {
-        buildUrlFactory.mockReturnValue(buildUrlMock);
+        (buildUrlFactory as jest.Mock).mockReturnValue(buildUrlMock);
     });
 
     beforeEach(() => {

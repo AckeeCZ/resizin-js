@@ -1,4 +1,5 @@
 import React from 'react';
+import type { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { buildUrlFactory } from 'resizin';
 
@@ -7,12 +8,13 @@ import ResizinContext from './ResizinContext';
 interface ProviderProps {
     serverUrl?: string;
     bucket: string;
+    children: ReactNode;
 }
 
 /**
  * @example ../../docs/ProviderComponent.md
  */
-const Provider: React.FunctionComponent<ProviderProps> = ({ serverUrl, bucket, children }) => {
+const Provider = ({ serverUrl, bucket, children }: ProviderProps) => {
     const buildUrl = React.useMemo(() => buildUrlFactory({ serverUrl, bucket }), [serverUrl, bucket]);
 
     return <ResizinContext.Provider value={buildUrl}>{children}</ResizinContext.Provider>;
